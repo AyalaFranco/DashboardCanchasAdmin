@@ -23,7 +23,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
       ),
       body: ListView(
         children: [
-          Container(
+          Container( //Header
             width: double.infinity,
             height: 200,
             decoration: BoxDecoration(
@@ -47,8 +47,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
+          Padding( //Selector de Día
             padding: const EdgeInsets.all(16.0),
             child: Container(
               padding: EdgeInsets.all(8),
@@ -67,12 +66,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Padding(
+          Padding( //Selector de Horarios.
             padding: EdgeInsets.all(16),
             child: Container(
               width: 200,
-              height: 200,
+              height: 100,
               padding: EdgeInsets.all(8),
               decoration: BoxDecorations.containerName,
               child: Column(
@@ -82,17 +80,24 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (_, i) => ElevatedButton(
+                        style: (_selectedHour == i)
+                            ? ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                foregroundColor: Colors.white,
+                              )
+                            : null,
                         onPressed: () => setState(() => _selectedHour = i),
                         child: Text("${i.toString().padLeft(2, '0')}hs"),
                       ),
                       separatorBuilder: (_, _) => SizedBox(width: 8),
-                      itemCount: 13,
+                      itemCount: 24,
                     ),
                   ),
                 ],
               ),
             ),
           ),
+          
         ],
       ),
     );
