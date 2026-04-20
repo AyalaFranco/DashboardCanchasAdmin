@@ -19,6 +19,12 @@ class selectorCancha extends StatelessWidget {
           ),
           child: Row(
             children: [
+              Container(
+                child: Image.asset("assets/images/futbol.png"),
+                width: 80,
+                height:80,
+                ),
+              const SizedBox(width:14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start, //Alinea todos los widgets                  
@@ -29,23 +35,23 @@ class selectorCancha extends StatelessWidget {
                         Text( //Titulo
                           "Cancha",
                           style: TextStyle(
-                            fontSize:15,
+                            fontSize:16,
                             fontWeight: FontWeight.bold,
                             color: Colors.green
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       "Cancha sintetica",
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.black,
+                        color: const Color.fromARGB(255, 133, 133, 133),
                         fontStyle: FontStyle.italic,
                       ),
                     ),
-                        SizedBox(height: 6),
+                       const SizedBox(height: 6),
                         Row( //Otro texto
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -53,7 +59,7 @@ class selectorCancha extends StatelessWidget {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                text: "Disponible",
+                                text: "12.000",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -61,7 +67,7 @@ class selectorCancha extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: "hora",
+                                text: "/hora",
                                 style: TextStyle(
                                   fontSize: 11,
                                   color: Colors.grey
@@ -84,3 +90,4 @@ class selectorCancha extends StatelessWidget {
     );
   }
 }
+
