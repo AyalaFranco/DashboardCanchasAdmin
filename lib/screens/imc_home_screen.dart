@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/components/canchas_selector.dart';
 import 'package:reserva_cancha/components/buscador.dart';
+import 'package:reserva_cancha/widgets/selector_cancha.dart';
 
 class ImcHomeScreen extends StatefulWidget {
   const ImcHomeScreen({super.key});
@@ -19,7 +19,7 @@ class _MyWidgetState extends State<ImcHomeScreen> {
       body: Column(
         children: [
           Buscador(),
-          CanchasSelector()
+          selectorCancha()
         ],
       ),
     );
