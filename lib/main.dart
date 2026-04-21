@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/screens/imc_home_screen.dart';
+import 'package:reserva_cancha/screens/cca_home_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,7 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ImcHomeScreen()
+      home: CCAHomeScreen()
     );
   }
 }
