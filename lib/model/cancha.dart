@@ -6,6 +6,7 @@ class Cancha {
   final String tipoCancha;
   final String imagenCancha;
   final String logoCancha;
+  final double precio;
   final List<String> servicios;
 
   const Cancha({
@@ -17,6 +18,7 @@ class Cancha {
     required this.imagenCancha,
     required this.logoCancha,
     required this.servicios,
+    required this.precio,
   });
 
   static const List<Cancha> demoCanchas = [
@@ -28,6 +30,7 @@ class Cancha {
       tipoCancha: "Césped Sintético",
       imagenCancha: "Fleming.jpeg",
       logoCancha: "fleming.png",
+      precio: 15000,
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -40,6 +43,7 @@ class Cancha {
       tipoCancha: "Futbol Sala",
       imagenCancha: "Club San Martín.png",
       logoCancha: "san martin.jpg",
+      precio: 5000,
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -51,7 +55,8 @@ class Cancha {
       telefono: "(02945) 15334303",
       tipoCancha: "Cesped Natural",
       imagenCancha: "La Española.jpg",
-      logoCancha: "española.png",
+      logoCancha: "española.png"     ,
+      precio: 10000,
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -62,8 +67,9 @@ class Cancha {
       ubicacion: "Alberdi 251",
       telefono: "(02945) 15553978",
       tipoCancha: "Césped Sintético",
+      precio: 20000,
       imagenCancha: "El Molino.png",
-      logoCancha: "",
+      logoCancha: "image.png",
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -72,6 +78,7 @@ class Cancha {
       id: 4,
       nombre: "Esquel Padding",
       ubicacion: "Chacabuco 1791",
+      precio: 30000,
       telefono: "2945594466",
       tipoCancha: "Césped Sintético",
       imagenCancha: "Esquel Padding.png",
@@ -82,6 +89,7 @@ class Cancha {
     ),
     Cancha(
       id: 5,
+      precio: 50000,
       nombre: "La Gran 5",
       ubicacion: "Ruta 259 Km. 4",
       telefono: "(02945) 15667025",
@@ -100,6 +108,7 @@ class Cancha {
       tipoCancha: "Césped Sintético",
       imagenCancha: "La 10 Fc.png",
       logoCancha: "la 10.png",
+      precio: 55000,
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -111,6 +120,7 @@ class Cancha {
       telefono: "(02945) 15339230",
       tipoCancha: "Futbol Sala",
       imagenCancha: "La Gambeta.png",
+      precio: 25000,
       logoCancha: "gambeta.png",
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
@@ -120,6 +130,7 @@ class Cancha {
       id: 8,
       nombre: "Zona Mixta",
       ubicacion: "Almafuerte 1191",
+      precio: 75000,
       telefono: "2213548408",
       tipoCancha: "Césped Sintético",
       imagenCancha: "Zona Mixta.jpg",

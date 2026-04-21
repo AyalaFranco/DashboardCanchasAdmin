@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Buscador extends StatelessWidget {
-  const Buscador({super.key});
+  final Function(String) onChanged;
+  const Buscador({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +12,7 @@ class Buscador extends StatelessWidget {
       child: Column(
         children: [
           TextField(
+            onChanged: onChanged,
             decoration: InputDecoration(
               hintText: "Busca tu cancha",
               prefixIcon: Icon(Icons.search),
