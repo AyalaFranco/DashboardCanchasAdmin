@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/date_picker.dart';
 import 'package:reserva_cancha/components/time_picker.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
+import 'package:intl/intl.dart';
 
 class ConfirmationScreen extends StatefulWidget {
   const ConfirmationScreen({super.key});
@@ -11,40 +11,75 @@ class ConfirmationScreen extends StatefulWidget {
 }
 
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
-  int? _selectedHour = 5;
+  int? _selectedHour;
+  DateTime? _selectedDate;
+
+  String get _confirmationButtonText {
+    String text = "CONFIRMAR RESERVA";
+
+    if (_selectedDate != null) {
+      text += " ${DateFormat('dd/MM/yyyy').format(_selectedDate!)}";
+      if (_selectedHour != null) {
+        text += " $_selectedHour:00hs";
+      }
+    }
+
+    return text;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Confirmación Reserva"),
-        backgroundColor: AppColors.backgraound,
+        backgroundColor: Colors.green,
         foregroundColor: Colors.black,
       ),
-      body: ListView(
-        children: [
-          _ConfirmationHeader(),
-          Padding(
-            //Selector de Día
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                DatePicker(
-                  title: "Elegí una fecha",
-                  enabledDays: 30,
-                  onDateChanged: (_) => (),
-                ),
-                SizedBox(height: 16),
-                TimePicker(
-                  height: 100,
-                  title: "Elegí un horario",
-                  selectedHour: _selectedHour,
-                  onHourSelected: (h) => setState(() => _selectedHour = h),
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _ConfirmationHeader(),
+            Padding(
+              //Selector de Día
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  DatePicker(
+                    title: "Elegí una fecha",
+                    enabledDays: 30,
+                    onDateChanged: (date) =>
+                        (setState(() => _selectedDate = date)),
+                  ),
+                  SizedBox(height: 16),
+                  TimePicker(
+                    enabled: _selectedDate != null,
+                    height: 100,
+                    title: "Elegí un horario",
+                    selectedHour: _selectedHour,
+                    onHourSelected: (h) => setState(() => _selectedHour = h),
+                  ),
+                  SizedBox(height: 16),
+                  SizedBox(
+                    height: 60,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: (_selectedHour != null) ? () => () : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        disabledForegroundColor: Colors.grey.shade600,
+                      ),
+                      child: Text(
+                        _confirmationButtonText,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
