@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/date_picker.dart';
 import 'package:reserva_cancha/components/time_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:reserva_cancha/model/cancha.dart';
 
 class ConfirmationScreen extends StatefulWidget {
-  const ConfirmationScreen({super.key});
+  final Cancha field;
+
+  const ConfirmationScreen({super.key, required this.field});
 
   @override
   State<ConfirmationScreen> createState() => _ConfirmationScreenState();
@@ -38,7 +41,10 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _ConfirmationHeader(),
+            _ConfirmationHeader(
+              image: widget.field.imagenCancha,
+              title: widget.field.nombre,
+            ),
             Padding(
               //Selector de Día
               padding: const EdgeInsets.all(16.0),
@@ -86,7 +92,10 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
 }
 
 class _ConfirmationHeader extends StatelessWidget {
-  const _ConfirmationHeader();
+  final String image;
+  final String title;
+
+  const _ConfirmationHeader({required this.image, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +105,7 @@ class _ConfirmationHeader extends StatelessWidget {
       height: 200,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/fleming.jpeg"),
+          image: AssetImage("assets/images/fields/$image"),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
             Colors.black.withValues(alpha: 0.5),
@@ -109,7 +118,7 @@ class _ConfirmationHeader extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            "Fleming Futbol Club",
+            title,
             style: TextStyle(fontSize: 38, color: Colors.white),
           ),
         ),
