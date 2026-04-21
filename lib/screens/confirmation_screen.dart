@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/date_picker.dart';
 import 'package:reserva_cancha/components/time_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/core/text_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 
 class ConfirmationScreen extends StatefulWidget {
@@ -30,6 +34,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
     return text;
   }
 
+  String _reservationCode(String fieldName) {
+    String text = fieldName.substring(0, 3).trim().toUpperCase();
+    return "$text-${Random().nextInt(999)}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +55,38 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               title: widget.field.nombre,
             ),
             Padding(
-              //Selector de Día
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    width: double.infinity,
+                    decoration: BoxDecorations.containerName,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Detalles", style: TextStyles.bodyText),
+                        _InfoText(
+                          label: 'Ubicación',
+                          value: widget.field.ubicacion,
+                          icon: Icons.location_on,
+                        ),
+                        _InfoText(
+                          label: 'Teléfono',
+                          value: widget.field.telefono,
+                          icon: Icons.phone,
+                        ),
+                        _InfoText(
+                          label: 'Tipo',
+                          value: widget.field.tipoCancha,
+                          icon: Icons.stadium,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
                   DatePicker(
-                    title: "Elegí una fecha",
+                    title: "Seleccionar Fecha",
                     enabledDays: 30,
                     onDateChanged: (date) =>
                         (setState(() => _selectedDate = date)),
@@ -59,17 +94,54 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   SizedBox(height: 16),
                   TimePicker(
                     enabled: _selectedDate != null,
-                    height: 100,
-                    title: "Elegí un horario",
+                    height: 110,
+                    title: "Seleccionar Horario",
                     selectedHour: _selectedHour,
                     onHourSelected: (h) => setState(() => _selectedHour = h),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Total: ARS ${widget.field.precio}",
+                    style: _selectedHour != null
+                        ? TextStyles.bodyText.copyWith(
+                            color: Colors.green.shade800,
+                          )
+                        : TextStyles.bodyText.copyWith(
+                            color: Colors.grey.shade600,
+                          ),
+                  ),
+                  const SizedBox(height: 16),
                   SizedBox(
                     height: 60,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: (_selectedHour != null) ? () => () : null,
+                      onPressed: (_selectedHour == null)
+                          ? null
+                          : () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text(
+                                      "¡Reserva Exitosa!",
+                                      style: TextStyles.bodyText,
+                                    ),
+                                    content: Text(
+                                      "Código: ${_reservationCode(widget.field.nombre)}",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("Entendido"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ).then((_) {
+                                if (context.mounted) Navigator.pop(context);
+                              });
+                            },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.white,
@@ -87,6 +159,29 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _InfoText extends StatelessWidget {
+  final String label;
+  final String value;
+  final IconData icon;
+
+  const _InfoText({
+    required this.label,
+    required this.value,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon),
+        const SizedBox(width: 8),
+        Expanded(child: Text("$label: $value", style: TextStyle(fontSize: 18))),
+      ],
     );
   }
 }

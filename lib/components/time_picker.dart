@@ -25,6 +25,7 @@ class TimePicker extends StatelessWidget {
       padding: EdgeInsets.all(8),
       decoration: BoxDecorations.containerName,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
@@ -32,6 +33,7 @@ class TimePicker extends StatelessWidget {
                 ? TextStyles.bodyText
                 : TextStyles.bodyText.copyWith(color: Colors.grey.shade600),
           ),
+          const SizedBox(height: 8,),
           Expanded(
             child: ListView.separated(
               scrollDirection: Axis.horizontal,

@@ -24,7 +24,7 @@ class Cancha {
   static const List<Cancha> demoCanchas = [
     Cancha(
       id: 0,
-      nombre: "Fleming",
+      nombre: "Fleming Fútbol Club",
       ubicacion: "Fleming 540",
       telefono: "2945331590",
       tipoCancha: "Césped Sintético",
@@ -76,7 +76,7 @@ class Cancha {
     ),
     Cancha(
       id: 4,
-      nombre: "Esquel Padding",
+      nombre: "Esquel Padel",
       ubicacion: "Chacabuco 1791",
       precio: 30000,
       telefono: "2945594466",

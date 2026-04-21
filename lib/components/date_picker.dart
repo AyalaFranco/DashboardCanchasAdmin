@@ -21,6 +21,7 @@ class DatePicker extends StatelessWidget {
       decoration: BoxDecorations.containerName,
       width: double.infinity,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: TextStyles.bodyText),
           CalendarDatePicker(
