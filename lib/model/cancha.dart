@@ -31,7 +31,7 @@ class Cancha {
       nombre: "Club San Martín",
       ubicacion: "Av. Fontana 835",
       telefono: "(02945) 15681194",
-      tipoCancha: "Césped Sintético",
+      tipoCancha: "Futbol Sala",
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -41,7 +41,7 @@ class Cancha {
       nombre: "Club Social y Deportivo Del Campo",
       ubicacion: "Rivadavia y Mitre",
       telefono: "(02945) 15334303",
-      tipoCancha: "Césped Sintético",
+      tipoCancha: "Cesped Natural",
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -71,7 +71,7 @@ class Cancha {
       nombre: "La Gran 5",
       ubicacion: "Ruta 259 Km. 4",
       telefono: "(02945) 15667025",
-      tipoCancha: "Césped Sintético",
+      tipoCancha: "Césped Sintético, Cancha Techada",
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],
@@ -91,7 +91,7 @@ class Cancha {
       nombre: "La Gambeta",
       ubicacion: "Conesa 986",
       telefono: "(02945) 15339230",
-      tipoCancha: "Césped Sintético",
+      tipoCancha: "Futbol Sala",
       servicios: [
         "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
       ],

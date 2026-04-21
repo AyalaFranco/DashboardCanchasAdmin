@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/core/app_colors.dart';
+import 'package:reserva_cancha/screens/confirmation_screen.dart';
 
 class selectorCancha extends StatelessWidget {
   const selectorCancha({super.key});
@@ -7,14 +8,17 @@ class selectorCancha extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material( //Detectar accion de usuario
-      color: Colors.blueAccent,
+      color: const Color.fromARGB(255, 255, 255, 255),
       child: InkWell( //Animacion al tocar
-        onTap: (){},
+        onTap: (){
+        Navigator.push(context,
+        MaterialPageRoute(builder: (context) =>ConfirmationScreen()),);
+        },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 6),//Ancho y largo 
           padding: EdgeInsets.all(14),
           decoration: BoxDecoration( //Personalizar widget y caja
-            color: Colors.white,
+            color: const Color.fromARGB(255, 250, 207, 157),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
@@ -87,7 +91,8 @@ class selectorCancha extends StatelessWidget {
           ),
         )
       )
+      
     );
   }
+  
 }
-
