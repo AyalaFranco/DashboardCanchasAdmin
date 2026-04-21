@@ -32,7 +32,13 @@ class Cancha {
       logoCancha: "fleming.png",
       precio: 15000,
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -45,7 +51,13 @@ class Cancha {
       logoCancha: "san martin.jpg",
       precio: 5000,
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -55,10 +67,16 @@ class Cancha {
       telefono: "(02945) 15334303",
       tipoCancha: "Cesped Natural",
       imagenCancha: "La Española.jpg",
-      logoCancha: "española.png"     ,
+      logoCancha: "española.png",
       precio: 10000,
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -71,7 +89,13 @@ class Cancha {
       imagenCancha: "El Molino.png",
       logoCancha: "image.png",
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -84,7 +108,13 @@ class Cancha {
       imagenCancha: "Esquel Padding.png",
       logoCancha: "padel.png",
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -97,7 +127,13 @@ class Cancha {
       imagenCancha: "La Gran 5.png",
       logoCancha: "gran 5.png",
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -110,7 +146,13 @@ class Cancha {
       logoCancha: "la 10.png",
       precio: 55000,
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -123,7 +165,13 @@ class Cancha {
       precio: 25000,
       logoCancha: "gambeta.png",
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
     Cancha(
@@ -136,7 +184,13 @@ class Cancha {
       imagenCancha: "Zona Mixta.jpg",
       logoCancha: "zona mixta.png",
       servicios: [
-        "wi-fi, torneos, estacionamiento, parilla, cumpleaños, bar, quincho",
+        "Wi-Fi",
+        "Torneos",
+        "Estacionamiento",
+        "Parrilla",
+        "Cumpleaños",
+        "Bar",
+        "Quincho",
       ],
     ),
   ];

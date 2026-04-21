@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/date_picker.dart';
+import 'package:reserva_cancha/components/service_display.dart';
 import 'package:reserva_cancha/components/time_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
@@ -85,13 +86,19 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  ServiceDisplay(
+                    height: 80,
+                    title: "Servicios",
+                    services: widget.field.servicios,
+                  ),
+                  const SizedBox(height: 16,),
                   DatePicker(
                     title: "Seleccionar Fecha",
                     enabledDays: 30,
                     onDateChanged: (date) =>
                         (setState(() => _selectedDate = date)),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TimePicker(
                     enabled: _selectedDate != null,
                     height: 110,
