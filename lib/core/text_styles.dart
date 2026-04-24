@@ -6,4 +6,15 @@ class TextStyles {
     fontSize: 22,
     fontWeight: FontWeight.bold,
   );
+  static const TextStyle secondaryText = TextStyle(
+    color: Colors.grey,
+    fontSize: 10,
+    fontStyle: FontStyle.italic,
+  );
+  static const TextStyle terciaryText = TextStyle(
+    color: Colors.yellow,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    fontStyle: FontStyle.italic,
+  );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/core/app_colors.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
 import 'package:reserva_cancha/core/text_styles.dart';
 
@@ -53,10 +54,10 @@ class TimePicker extends StatelessWidget {
     return ElevatedButton(
       style: (selectedHour == index)
           ? ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              foregroundColor: Colors.white,
+              backgroundColor: AppColors.Button,
+              foregroundColor: AppColors.secondary,
             )
-          : ElevatedButton.styleFrom(foregroundColor: Colors.black),
+          : ElevatedButton.styleFrom(foregroundColor: AppColors.secondary),
       onPressed: () => onHourSelected(index),
       child: Text("${index.toString().padLeft(2, '0')}hs"),
     );
@@ -64,7 +65,7 @@ class TimePicker extends StatelessWidget {
 
   ElevatedButton _disabledButtonBuilder(int index) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(foregroundColor: Colors.grey.shade600),
+      style: ElevatedButton.styleFrom(foregroundColor: AppColors.Button),
       onPressed: null,
       child: Text("${index.toString().padLeft(2, '0')}hs"),
     );

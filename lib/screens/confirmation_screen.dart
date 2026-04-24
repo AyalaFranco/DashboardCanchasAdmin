@@ -5,6 +5,7 @@ import 'package:reserva_cancha/components/date_picker.dart';
 import 'package:reserva_cancha/components/service_display.dart';
 import 'package:reserva_cancha/components/time_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:reserva_cancha/core/app_colors.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
 import 'package:reserva_cancha/core/text_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
@@ -44,9 +45,9 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Confirmación Reserva"),
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.black,
+        title: Text("Confirmación Reserva", style: TextStyles.bodyText),
+        backgroundColor:AppColors.primary,
+        foregroundColor: AppColors.Button,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -111,10 +112,10 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     "Total: ARS ${widget.field.precio}",
                     style: _selectedHour != null
                         ? TextStyles.bodyText.copyWith(
-                            color: Colors.green.shade800,
+                            color: AppColors.primary,
                           )
                         : TextStyles.bodyText.copyWith(
-                            color: Colors.grey.shade600,
+                            color: AppColors.secondary,
                           ),
                   ),
                   const SizedBox(height: 16),
@@ -135,7 +136,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                     ),
                                     content: Text(
                                       "Código: ${_reservationCode(widget.field.nombre)}",
-                                      style: TextStyle(fontSize: 18),
+                                      style: TextStyles.bodyText,
                                     ),
                                     actions: [
                                       TextButton(
@@ -150,13 +151,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                               });
                             },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
+                        backgroundColor: AppColors.Button,
+                        foregroundColor: AppColors.secondary,
                         disabledForegroundColor: Colors.grey.shade600,
                       ),
                       child: Text(
                         _confirmationButtonText,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyles.secondaryText,
                       ),
                     ),
                   ),
