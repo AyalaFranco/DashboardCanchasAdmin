@@ -28,8 +28,8 @@ class _CanchasSelectorState extends State<CanchasSelector> {
             child: Container(
               decoration: BoxDecoration(
                 color: selectedCancha == "1" 
-                ? AppColors.Button2
-                : AppColors.Button,
+                ? AppColors.buttonBackground
+                : AppColors.buttonForeground,
                 borderRadius: BorderRadius.circular(20)
               ),
               child: Padding(

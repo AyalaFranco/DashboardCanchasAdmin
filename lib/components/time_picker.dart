@@ -54,8 +54,8 @@ class TimePicker extends StatelessWidget {
     return ElevatedButton(
       style: (selectedHour == index)
           ? ElevatedButton.styleFrom(
-              backgroundColor: AppColors.Button,
-              foregroundColor: AppColors.secondary,
+              backgroundColor: AppColors.buttonBackground,
+              foregroundColor: AppColors.buttonForeground,
             )
           : ElevatedButton.styleFrom(foregroundColor: AppColors.secondary),
       onPressed: () => onHourSelected(index),
@@ -65,7 +65,7 @@ class TimePicker extends StatelessWidget {
 
   ElevatedButton _disabledButtonBuilder(int index) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(foregroundColor: AppColors.Button),
+      style: ElevatedButton.styleFrom(foregroundColor: AppColors.buttonForeground),
       onPressed: null,
       child: Text("${index.toString().padLeft(2, '0')}hs"),
     );

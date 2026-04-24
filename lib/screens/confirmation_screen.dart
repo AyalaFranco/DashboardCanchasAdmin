@@ -47,7 +47,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
       appBar: AppBar(
         title: Text("Confirmación Reserva", style: TextStyles.bodyText),
         backgroundColor:AppColors.primary,
-        foregroundColor: AppColors.Button,
+        foregroundColor: AppColors.secondary,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -151,7 +151,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                               });
                             },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.Button,
+                        backgroundColor: AppColors.buttonBackground,
                         foregroundColor: AppColors.secondary,
                         disabledForegroundColor: Colors.grey.shade600,
                       ),
