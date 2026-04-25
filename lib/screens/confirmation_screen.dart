@@ -5,9 +5,7 @@ import 'package:reserva_cancha/components/date_picker.dart';
 import 'package:reserva_cancha/components/service_display.dart';
 import 'package:reserva_cancha/components/time_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
-import 'package:reserva_cancha/core/text_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 
 class ConfirmationScreen extends StatefulWidget {
@@ -43,12 +41,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final contextColors = ColorScheme.of(context);
+    final contextText = TextTheme.of(context);
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Confirmación Reserva", style: TextStyles.bodyText),
-        backgroundColor:AppColors.primary,
-        foregroundColor: AppColors.secondary,
-      ),
+      appBar: AppBar(title: Text("Confirmación Reserva")),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -63,11 +60,16 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     width: double.infinity,
-                    decoration: BoxDecorations.containerName,
+                    decoration: BoxDecorations.regularContainer(context),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Detalles", style: TextStyles.bodyText),
+                        Text(
+                          "Detalles",
+                          style: contextText.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         _InfoText(
                           label: 'Ubicación',
                           value: widget.field.ubicacion,
@@ -92,7 +94,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     title: "Servicios",
                     services: widget.field.servicios,
                   ),
-                  const SizedBox(height: 16,),
+                  const SizedBox(height: 16),
                   DatePicker(
                     title: "Seleccionar Fecha",
                     enabledDays: 30,
@@ -110,13 +112,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   const SizedBox(height: 16),
                   Text(
                     "Total: ARS ${widget.field.precio}",
-                    style: _selectedHour != null
-                        ? TextStyles.bodyText.copyWith(
-                            color: AppColors.primary,
-                          )
-                        : TextStyles.bodyText.copyWith(
-                            color: AppColors.secondary,
-                          ),
+                    style: contextText.headlineSmall?.copyWith(
+                      color: _selectedHour != null
+                          ? contextColors.primary
+                          : contextColors.onSurface.withValues(alpha: 0.38),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   SizedBox(
@@ -130,13 +130,9 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: const Text(
-                                      "¡Reserva Exitosa!",
-                                      style: TextStyles.bodyText,
-                                    ),
+                                    title: const Text("¡Reserva Exitosa!"),
                                     content: Text(
                                       "Código: ${_reservationCode(widget.field.nombre)}",
-                                      style: TextStyles.bodyText,
                                     ),
                                     actions: [
                                       TextButton(
@@ -151,14 +147,10 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                               });
                             },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.buttonBackground,
-                        foregroundColor: AppColors.secondary,
-                        disabledForegroundColor: Colors.grey.shade600,
+                        backgroundColor: contextColors.primary,
+                        foregroundColor: contextColors.onPrimary,
                       ),
-                      child: Text(
-                        _confirmationButtonText,
-                        style: TextStyles.secondaryText,
-                      ),
+                      child: Text(_confirmationButtonText),
                     ),
                   ),
                 ],
@@ -188,7 +180,9 @@ class _InfoText extends StatelessWidget {
       children: [
         Icon(icon),
         const SizedBox(width: 8),
-        Expanded(child: Text("$label: $value", style: TextStyle(fontSize: 18))),
+        Expanded(
+          child: Text("$label: $value", style: TextTheme.of(context).bodyLarge),
+        ),
       ],
     );
   }

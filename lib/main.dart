@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/core/app_themes.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
 
 void main() {
@@ -11,7 +12,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CCAHomeScreen()
+      home: CCAHomeScreen(),
+      theme: AppThemes.lightTheme,
     );
   }
 }
