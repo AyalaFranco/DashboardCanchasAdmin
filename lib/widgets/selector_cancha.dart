@@ -3,7 +3,6 @@ import 'package:reserva_cancha/core/app_colors.dart';
 import 'package:reserva_cancha/core/text_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/screens/confirmation_screen.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
 
 class selectorCancha extends StatelessWidget {
   final Cancha cancha;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
-import 'package:reserva_cancha/core/text_styles.dart';
 
 class ServiceDisplay extends StatelessWidget {
   final double height;
@@ -19,11 +18,16 @@ class ServiceDisplay extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       height: height,
-      decoration: BoxDecorations.containerName,
+      decoration: BoxDecorations.regularContainer(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyles.bodyText),
+          Text(
+            title,
+            style: TextTheme.of(
+              context,
+            ).titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.separated(

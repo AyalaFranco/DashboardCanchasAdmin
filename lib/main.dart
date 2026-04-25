@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/core/app_themes.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/services/auth/auth_gate.dart';
 
@@ -20,7 +21,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: AuthGate(),//CCAHomeScreen()
+      home: AuthGate(),
+      theme: AppThemes.lightTheme,
     );
   }
 }

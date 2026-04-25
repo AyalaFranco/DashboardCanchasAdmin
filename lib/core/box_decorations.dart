@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
 
 class BoxDecorations {
-  static final BoxDecoration containerName = BoxDecoration(
-    color: AppColors.primary,
+  static BoxDecoration regularContainer(BuildContext context) => BoxDecoration(
+    color: ColorScheme.of(context).surfaceContainer,
     borderRadius: BorderRadius.circular(16),
   );
 }
