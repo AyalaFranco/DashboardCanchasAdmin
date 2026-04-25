@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
+import 'package:reserva_cancha/services/auth/auth_gate.dart';
 
-void main() {
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://qqyywtlistoirjpbkeyx.supabase.co',
+    anonKey: 'sb_publishable_0yJ5oU4X6NFXliTSnMZh3Q_WJ0GB5ZH',
+  );
   runApp(const MainApp());
 }
 
@@ -11,7 +20,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CCAHomeScreen()
+      home: AuthGate(),//CCAHomeScreen()
     );
   }
 }
+
