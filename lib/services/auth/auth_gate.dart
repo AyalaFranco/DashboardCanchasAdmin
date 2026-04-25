@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/screens/loginHome_screen.dart';
+import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -23,7 +23,7 @@ class _AuthGateState extends State<AuthGate> {
         final session = snapshot.data?.session;
 
         if (session != null){
-          return const Loginhome();//home
+          return const CCAHomeScreen();//home
         } else {
           return const LoginPage();//Erorr
         }

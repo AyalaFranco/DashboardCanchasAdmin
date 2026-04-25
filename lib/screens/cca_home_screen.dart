@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/buscador.dart';
 import 'package:reserva_cancha/core/app_colors.dart';
 import 'package:reserva_cancha/model/cancha.dart';
+import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:reserva_cancha/widgets/selector_cancha.dart';
 
 class CCAHomeScreen extends StatefulWidget {
@@ -30,13 +31,20 @@ class _CCAHomeScreenState extends State<CCAHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+     final auth = AuthService();
+     
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.black,
-
         title: Center(child: Text("Canchas Comarca Andina", style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold))),
+        actions: [
+        IconButton(
+          onPressed: () => auth.signOut(), //Salir sesion
+          icon: const Icon(Icons.logout)),
+        ],
       ),
       body: Column(
         children: [
