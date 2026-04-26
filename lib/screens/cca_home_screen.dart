@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/buscador.dart';
 import 'package:reserva_cancha/core/app_colors.dart';
+import 'package:reserva_cancha/core/text_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:reserva_cancha/widgets/selector_cancha.dart';
@@ -13,6 +14,8 @@ class CCAHomeScreen extends StatefulWidget {
 }
 
 class _CCAHomeScreenState extends State<CCAHomeScreen> {
+  
+  
 
   final List<Cancha> todasLasCanchas=Cancha.demoCanchas;
   List<Cancha> canchasFiltradas=[];
@@ -33,13 +36,15 @@ class _CCAHomeScreenState extends State<CCAHomeScreen> {
   Widget build(BuildContext context) {
 
      final auth = AuthService();
-     
+     final contextColors= ColorScheme.of(context);
+     final contextText= TextTheme.of(context);
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: contextColors.surface,
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.black,
-        title: Center(child: Text("Canchas Comarca Andina", style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold))),
+        title: Center(child: Text("Canchas Comarca Andina", style: contextText.bodyLarge?.copyWith(
+          fontSize: 25,
+        
+        ))),
         actions: [
         IconButton(
           onPressed: () => auth.signOut(), //Salir sesion
@@ -54,7 +59,7 @@ class _CCAHomeScreenState extends State<CCAHomeScreen> {
             child: ListView.builder(
               itemCount: canchasFiltradas.length,
               itemBuilder: (context,index){
-                return selectorCancha(cancha: canchasFiltradas[index]);
+                return selectorCancha(field: canchasFiltradas[index]);
               }
               
             ),

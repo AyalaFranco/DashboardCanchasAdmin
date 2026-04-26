@@ -12,6 +12,8 @@ class AppThemes {
     appBarTheme: AppBarTheme(
       backgroundColor: _lightColorScheme.primary,
       foregroundColor: _lightColorScheme.onPrimary,
+      surfaceTintColor: _lightColorScheme.surface
     ),
+    
   );
 }

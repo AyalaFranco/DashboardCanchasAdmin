@@ -55,7 +55,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
+              child: Column( 
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),

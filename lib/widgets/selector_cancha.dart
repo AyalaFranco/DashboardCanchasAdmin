@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/core/app_colors.dart';
+import 'package:reserva_cancha/core/box_decorations.dart';
 import 'package:reserva_cancha/core/text_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/screens/confirmation_screen.dart';
 
 class selectorCancha extends StatelessWidget {
-  final Cancha cancha;
-  const selectorCancha({super.key, required this.cancha});
+  final Cancha field;
+  const selectorCancha({super.key, required this.field});
 
   @override
   Widget build(BuildContext context) {
+    final contextColors = ColorScheme.of(context);
+    final contextText = TextTheme.of(context);
     return Material( //Detectar accion de usuario
-      color: AppColors.background,
+      color: contextColors.background,
       child: InkWell( //Animacion al tocar
         onTap: (){
         Navigator.push(context,
-        MaterialPageRoute(builder: (context) =>ConfirmationScreen(field: cancha)));
+        MaterialPageRoute(builder: (context) =>ConfirmationScreen(field: field)));
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 6),//Ancho y largo 
             padding: EdgeInsets.all(14),
-            decoration: BoxDecoration( //Personalizar widget y caja
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(30),
-            ),
+            decoration: BoxDecorations.regularContainer(context),
             child: Row(
               children: [
-                ClipOval(child: Image.asset("assets/images/icons/${cancha.logoCancha}", width: 80, height: 80,)),
+                ClipOval(child: Image.asset("assets/images/icons/${field.logoCancha}", width: 80, height: 80,)),
                 const SizedBox(width:14),
                 Expanded(
                   child: Column(
@@ -38,19 +38,17 @@ class selectorCancha extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text( //Titulo
-                            cancha.nombre,
-                            style: TextStyles.bodyText,
+                            field.nombre,
+                            style: contextText.bodyLarge
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        cancha.tipoCancha,
-                        style: TextStyles.secondaryText
+                        field.tipoCancha,
+                        style: contextText.bodySmall
                       ),
-                      Text(cancha.ubicacion, style: TextStyle(fontSize: 12,
-                          color: const Color.fromARGB(255, 133, 133, 133),
-                          fontStyle: FontStyle.italic,)),
+                      Text(field.ubicacion, style: contextText.bodySmall),
                          const SizedBox(height: 6),
                          
                           Row( //Otro texto
@@ -60,8 +58,8 @@ class selectorCancha extends StatelessWidget {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                  text: cancha.precio.toString(),
-                                  style: TextStyles.terciaryText,
+                                  text: field.precio.toString(),
+                                  style: contextText.bodySmall,
                                 ),
                                 TextSpan(
                                   text: "/hora",
