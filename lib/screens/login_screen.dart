@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/screens/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,21 +28,22 @@ class _LoginPageState extends State<LoginPage> {
       );
       return;
     }
-
-    try {
-      //Funcion inicio sesion
-      if (_isLogin) {
-        await _auth.signIn(email, password);
-      } else {
-        await _auth.signUp(email, password);
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(
+  
+    Navigator.pushReplacement(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+        MaterialPageRoute(builder: (_) => CCAHomeScreen()),
+      );
+  
+try { //Funcion inicio sesion
+    if (_isLogin) {
+      await _auth.signIn(email, password);
+    } else {
+      await _auth.signUp(email , password);
     }
+  }catch(e){
+    print("Hola");
   }
-
+  }
   @override
   Widget build(BuildContext context) {
     final contextText = TextTheme.of(context);
@@ -88,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
+  
   Padding paddingButtons(
     String texto,
     TextEditingController controller, {
