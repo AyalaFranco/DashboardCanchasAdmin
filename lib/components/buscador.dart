@@ -6,12 +6,14 @@ class Buscador extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final contextText=TextTheme.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
 
       child: Column(
         children: [
           TextField(
+            style: contextText.bodyLarge,
             onChanged: onChanged,
             decoration: InputDecoration(
               hintText: "Busca tu cancha",
@@ -24,8 +26,9 @@ class Buscador extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: Colors.grey)
               )
-              
+            
             ),
+          
           ),
         ],
       ),

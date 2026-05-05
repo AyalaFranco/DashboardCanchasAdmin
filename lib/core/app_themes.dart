@@ -11,10 +11,10 @@ class AppThemes {
     colorScheme: _lightColorScheme,
 
     textTheme: TextTheme(
-      titleMedium: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
-      bodyLarge: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+      titleMedium: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+      bodyLarge: TextStyle(fontSize: 20),
       bodyMedium: TextStyle(fontSize: 16),
-      bodySmall: TextStyle(fontSize: 12, color: Colors.grey),
+      bodySmall: TextStyle(fontSize: 10, color: Colors.grey),
     ),
     
     appBarTheme: AppBarTheme(

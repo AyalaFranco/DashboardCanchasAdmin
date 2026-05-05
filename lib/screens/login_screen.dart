@@ -55,14 +55,18 @@ try { //Funcion inicio sesion
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                decoration: BoxDecorations.regularContainer(context),
-                width: 50,
-                height: 25,
-                child: Text(
-                  _isLogin ? "Login" : "Crear Cuenta",
-                  style: contextText.bodyLarge,
-                  textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+              
+                  decoration: BoxDecorations.regularContainer(context),
+                  width: 160,
+                  child: Text(
+                    
+                    _isLogin ? "LogIn" : "Sign In",
+                    style: contextText.bodyLarge,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               paddingButtons("Email", _emailCtrl),
@@ -77,12 +81,12 @@ try { //Funcion inicio sesion
               TextButton(
                 //Cambiar de estado o pagina
                 onPressed: () {
-                  setState(() => _isLogin = !_isLogin);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => registerPage()));
                 },
                 child: Text(
-                  _isLogin
-                      ? "¿No tienes cuenta? Registrate"
-                      : "¿Tienes cuenta? Inicia sesion",
+                      "¿No tienes cuenta? Registrate"
                 ),
               ),
             ],
@@ -95,14 +99,16 @@ try { //Funcion inicio sesion
   Padding paddingButtons(
     String texto,
     TextEditingController controller, {
-    bool obscureText = false,
+    bool obscureText = false, 
   }) {
+    final contextText = TextTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 4),
       child: TextField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
+          labelStyle: contextText.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
           labelText: texto,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

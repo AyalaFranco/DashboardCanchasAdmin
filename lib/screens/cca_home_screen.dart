@@ -41,10 +41,7 @@ class _CCAHomeScreenState extends State<CCAHomeScreen> {
     return Scaffold(
       backgroundColor: contextColors.surface,
       appBar: AppBar(
-        title: Center(child: Text("Canchas Comarca Andina", style: contextText.bodyLarge?.copyWith(
-          fontSize: 25,
-          
-        ))),
+        title: Center(child: Text("Canchas Comarca Andina")),
         actions: [
         IconButton(
           onPressed: () => auth.signOut(), //Salir sesion

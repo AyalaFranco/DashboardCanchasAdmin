@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/core/box_decorations.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
@@ -12,13 +13,12 @@ class registerPage extends StatefulWidget {
 }
 
 class _registerPageState extends State<registerPage> {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _isRegister = true; //Variable de cambio de sesion
   final _auth = AuthService();
 
-   Future<void> _submit() async {
+  Future<void> _submit() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
@@ -38,17 +38,16 @@ class _registerPageState extends State<registerPage> {
         context,
         MaterialPageRoute(builder: (_) => CCAHomeScreen()),
       );
-
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
+    final contextText = TextTheme.of(context);
     return Scaffold(
       body: Center(
         child: SizedBox(
@@ -56,35 +55,84 @@ class _registerPageState extends State<registerPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Crear Cuenta",
-                style: const TextStyle(fontSize:50),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecorations.regularContainer(context),
+                  width: 160,
+                  alignment: Alignment.center,
+                  child: Text("Crear Cuenta", style: contextText.bodyLarge),
+                
+                ),
               ),
-              TextField(
-                controller: emailController,
-                decoration: const InputDecoration(labelText: "Email"),
-              ),
-              TextField(
-                controller: passwordController,
-                decoration: const InputDecoration(labelText: "Password"),
+              paddingButtons(contextText, emailController, "Email"),
+              paddingButtons(
+                contextText,
+                passwordController,
+                "Password",
                 obscureText: true,
               ),
-              ElevatedButton(
-                onPressed: _submit,
-                child: const Text("Registrarse"),
+              textFields(contextText, "DNI"),
+              SizedBox(height: 8,),
+              textFields(contextText, "Direccion"),
+              Padding(
+                padding: const EdgeInsets.all(6),
+                child: ElevatedButton(
+                  onPressed: _submit,
+                  child: const Text("Registrarse"),
                 ),
-                TextButton( //Cambiar de estado o pagina
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => LoginPage())
-                      );
-                  },
-                  child: Text(
-                  "¿Tienes cuenta? Inicia sesion",
-                    ),
-                  )
+              ),
+
+              TextButton(
+                //Cambiar de estado o pagina
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => LoginPage()),
+                  );
+                },
+              
+                child: Text("¿Tienes cuenta? Inicia sesion"),
+              ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  TextField textFields(TextTheme contextText, String texto){
+    return TextField(
+        decoration: InputDecoration(
+          labelStyle: contextText.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
+          labelText: texto,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+        ),
+      
+      );
+}
+
+
+  Padding paddingButtons(
+    TextTheme contextText,
+    TextEditingController controller,
+    String texto, {
+    bool obscureText = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: TextField(
+        controller: emailController,
+        obscureText: true,
+        decoration: InputDecoration(
+          labelStyle: contextText.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
+          labelText: texto,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.grey),
           ),
         ),
       ),

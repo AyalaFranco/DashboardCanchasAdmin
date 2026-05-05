@@ -17,6 +17,7 @@ class AppTextStyles {
       );
   static TextStyle bodySmall(BuildContext context) =>
     TextTheme.of(context).bodySmall!.copyWith(
+      fontSize: 10,
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.italic
     );
