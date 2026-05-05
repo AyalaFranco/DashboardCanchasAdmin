@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/core/app_colors.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
-import 'package:reserva_cancha/core/text_styles.dart';
+import 'package:reserva_cancha/core/apptext_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/screens/confirmation_screen.dart';
 
@@ -13,51 +13,64 @@ class selectorCancha extends StatelessWidget {
   Widget build(BuildContext context) {
     final contextColors = ColorScheme.of(context);
     final contextText = TextTheme.of(context);
-    return Material( //Detectar accion de usuario
-      color: contextColors.background,
-      child: InkWell( //Animacion al tocar
-        onTap: (){
-        Navigator.push(context,
-        MaterialPageRoute(builder: (context) =>ConfirmationScreen(field: field)));
+    return Material(
+      //Detectar accion de usuario
+      color: contextColors.surface,
+      child: InkWell(
+        //Animacion al tocar
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ConfirmationScreen(field: field),
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
           child: Container(
-            margin: EdgeInsets.symmetric(vertical: 6),//Ancho y largo 
+            margin: EdgeInsets.symmetric(vertical: 6), //Ancho y largo
             padding: EdgeInsets.all(14),
             decoration: BoxDecorations.regularContainer(context),
             child: Row(
               children: [
-                ClipOval(child: Image.asset("assets/images/icons/${field.logoCancha}", width: 80, height: 80,)),
-                const SizedBox(width:14),
+                ClipOval(
+                  child: Image.asset(
+                    "assets/images/icons/${field.logoCancha}",
+                    width: 80,
+                    height: 80,
+                  ),
+                ),
+                const SizedBox(width: 14),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start, //Alinea todos los widgets                  
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start, //Alinea todos los widgets
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text( //Titulo
+                          Text(
+                            //Titulo
                             field.nombre,
-                            style: contextText.bodyLarge
+                            style: contextText.bodyLarge,
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        field.tipoCancha,
-                        style: contextText.bodySmall
-                      ),
+                      Text(field.tipoCancha, style: contextText.bodySmall),
                       Text(field.ubicacion, style: contextText.bodySmall),
-                         const SizedBox(height: 6),
-                         
-                          Row( //Otro texto
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              RichText( //Usar diferentes estilos en textos
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
+                      const SizedBox(height: 6),
+
+                      Row(
+                        //Otro texto
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            //Usar diferentes estilos en textos
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
                                   text: field.precio.toString(),
                                   style: contextText.bodySmall,
                                 ),
@@ -65,27 +78,22 @@ class selectorCancha extends StatelessWidget {
                                   text: "/hora",
                                   style: TextStyle(
                                     fontSize: 11,
-                                    color: Colors.grey
-                                  )
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                               
-                                ]
-                                ),
-                              )
-                            ],
-                          )
-                        
-                      
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
-                  )
-                )
+                  ),
+                ),
               ],
             ),
           ),
-        )
-      )
-      
+        ),
+      ),
     );
   }
-  
 }

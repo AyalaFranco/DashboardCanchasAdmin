@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/buscador.dart';
 import 'package:reserva_cancha/core/app_colors.dart';
-import 'package:reserva_cancha/core/text_styles.dart';
+import 'package:reserva_cancha/core/apptext_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:reserva_cancha/widgets/selector_cancha.dart';
@@ -43,7 +43,7 @@ class _CCAHomeScreenState extends State<CCAHomeScreen> {
       appBar: AppBar(
         title: Center(child: Text("Canchas Comarca Andina", style: contextText.bodyLarge?.copyWith(
           fontSize: 25,
-        
+          
         ))),
         actions: [
         IconButton(
@@ -62,10 +62,13 @@ class _CCAHomeScreenState extends State<CCAHomeScreen> {
                 return selectorCancha(field: canchasFiltradas[index]);
               }
               
-            ),
+            )
+            ,
+            
           ),
         ],
       ),
+
     );
   }
 }

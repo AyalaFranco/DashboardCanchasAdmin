@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/core/app_colors.dart';
-import 'package:reserva_cancha/core/text_styles.dart';
+import 'package:reserva_cancha/core/apptext_styles.dart';
 
 class CanchasSelector extends StatefulWidget {
   const CanchasSelector({super.key});
@@ -37,7 +37,7 @@ class _CanchasSelectorState extends State<CanchasSelector> {
                 child: Column(
                   children: [
                     Image.asset("assets/images/futbol.png" , height: 100),
-                    Text("Cancha".toUpperCase(), style: TextStyles.bodyText)
+                    Text("Cancha".toUpperCase(), style: AppTextStyles.title(context))
                   ],
                 ),
               ),
