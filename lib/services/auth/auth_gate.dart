@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
+import 'package:reserva_cancha/screens/register_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

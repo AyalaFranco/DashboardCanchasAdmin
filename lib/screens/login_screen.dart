@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
+import 'package:reserva_cancha/screens/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,6 +26,11 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => CCAHomeScreen()),
+      );
+
 try { //Funcion inicio sesion
     if (_isLogin) {
       await _auth.signIn(email, password);
@@ -45,7 +52,7 @@ try { //Funcion inicio sesion
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                _isLogin ? "Login" : "Crear Cuenta",
+                "Login",
                 style: const TextStyle(fontSize:50),
               ),
               TextField(
@@ -63,12 +70,13 @@ try { //Funcion inicio sesion
                 ),
                 TextButton( //Cambiar de estado o pagina
                   onPressed: () {
-                    setState(() => _isLogin =! _isLogin);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => registerPage())
+                    );
                   },
                   child: Text(
-                    _isLogin
-                    ? "¿No tienes cuenta? Registrate"
-                    : "¿Tienes cuenta? Inicia sesion",
+                    "¿No tienes cuenta? Registrate"
                     ),
                   )
             ],
