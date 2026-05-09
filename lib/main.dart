@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/core/app_themes.dart';
-import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/services/auth/auth_gate.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/components/buscador.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
-import 'package:reserva_cancha/core/apptext_styles.dart';
-import 'package:reserva_cancha/model/cancha.dart';
-import 'package:reserva_cancha/services/auth_service.dart';
-import 'package:reserva_cancha/widgets/selector_cancha.dart';
+import 'package:reserva_cancha/screens/cca_canchas_screen.dart';
+import 'package:reserva_cancha/screens/cca_match_screen.dart';
+import 'package:reserva_cancha/screens/cca_profile_screen.dart';
+import 'package:reserva_cancha/screens/cca_tourney_screen.dart';
 
 class CCAHomeScreen extends StatefulWidget {
   const CCAHomeScreen({super.key});
@@ -14,58 +12,47 @@ class CCAHomeScreen extends StatefulWidget {
 }
 
 class _CCAHomeScreenState extends State<CCAHomeScreen> {
-  
-  
-
-  final List<Cancha> todasLasCanchas=Cancha.demoCanchas;
-  List<Cancha> canchasFiltradas=[];
-  
-  @override
-  void initState() {
-    super.initState();
-    canchasFiltradas = Cancha.demoCanchas;
-  }
-
-  void _filtrar(String query){
-    setState(() {
-      canchasFiltradas=todasLasCanchas.where((cancha)=>cancha.nombre.toLowerCase().contains(query.toLowerCase())).toList();
-    });
-  }
+  int currIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-
-     final auth = AuthService();
-     final contextColors= ColorScheme.of(context);
-     final contextText= TextTheme.of(context);
     return Scaffold(
-      backgroundColor: contextColors.surface,
+      backgroundColor: ColorScheme.of(context).surface,
       appBar: AppBar(
         title: Center(child: Text("Canchas Comarca Andina")),
         actions: [
-        IconButton(
-          onPressed: () => auth.signOut(), //Salir sesion
-          icon: const Icon(Icons.logout)),
-        ],
-      ),
-      body: Column(
-        children: [
-          Buscador(onChanged: _filtrar),
-
-          Expanded(
-            child: ListView.builder(
-              itemCount: canchasFiltradas.length,
-              itemBuilder: (context,index){
-                return selectorCancha(field: canchasFiltradas[index]);
-              }
-              
-            )
-            ,
-            
+          IconButton(
+            onPressed: () => (Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CCAProfileScreen()),
+            )),
+            icon: Icon(Icons.account_circle),
           ),
         ],
       ),
-
+      body: IndexedStack(
+        index: currIndex,
+        children: [
+          CCACanchasScreen(),
+          CCAMatchScreen(),
+          CCATourneyScreen(),
+        ],
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: currIndex,
+        onDestinationSelected: (index) => setState(() => currIndex = index),
+        destinations: [
+          NavigationDestination(icon: Icon(Icons.stadium), label: "Canchas"),
+          NavigationDestination(
+            icon: Icon(Icons.sports_soccer),
+            label: "Sumo Uno",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.emoji_events),
+            label: "Torneos",
+          ),
+        ],
+      ),
     );
   }
 }

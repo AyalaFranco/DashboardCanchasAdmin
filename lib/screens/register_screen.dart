@@ -3,7 +3,6 @@ import 'package:reserva_cancha/core/box_decorations.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class registerPage extends StatefulWidget {
   const registerPage({super.key});
