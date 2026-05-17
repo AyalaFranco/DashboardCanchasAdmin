@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
-import 'package:reserva_cancha/core/apptext_styles.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/screens/confirmation_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class selectorCancha extends StatelessWidget {
   final Cancha field;
@@ -35,10 +34,17 @@ class selectorCancha extends StatelessWidget {
             child: Row(
               children: [
                 ClipOval(
-                  child: Image.asset(
-                    "assets/images/icons/${field.logoCancha}",
+                  child: CachedNetworkImage(
+                    imageUrl: field.complejo.logoCancha ?? "",
                     width: 80,
                     height: 80,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, error, stackTrace) => Image.asset(
+                      "assets/images/defaultLogo.png",
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 14),
@@ -52,14 +58,17 @@ class selectorCancha extends StatelessWidget {
                         children: [
                           Text(
                             //Titulo
-                            field.nombre,
+                            field.complejo.nombreComplejo,
                             style: contextText.bodyLarge,
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
                       Text(field.tipoCancha, style: contextText.bodySmall),
-                      Text(field.ubicacion, style: contextText.bodySmall),
+                      Text(
+                        field.complejo.direccion,
+                        style: contextText.bodySmall,
+                      ),
                       const SizedBox(height: 6),
 
                       Row(
@@ -71,7 +80,8 @@ class selectorCancha extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: field.precio.toString(),
+                                  text:
+                                      '25000', //Hardcodeado, el precio estará en los turnos
                                   style: contextText.bodySmall,
                                 ),
                                 TextSpan(

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/date_picker.dart';
 import 'package:reserva_cancha/components/service_display.dart';
@@ -50,12 +51,12 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         child: Column(
           children: [
             _ConfirmationHeader(
-              image: widget.field.imagenCancha,
-              title: widget.field.nombre,
+              image: widget.field.imagenCancha ?? "null.png",
+              title: widget.field.complejo.nombreComplejo,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column( 
+              child: Column(
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -72,12 +73,12 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                         ),
                         _InfoText(
                           label: 'Ubicación',
-                          value: widget.field.ubicacion,
+                          value: widget.field.complejo.direccion,
                           icon: Icons.location_on,
                         ),
                         _InfoText(
                           label: 'Teléfono',
-                          value: widget.field.telefono,
+                          value: widget.field.complejo.telefono,
                           icon: Icons.phone,
                         ),
                         _InfoText(
@@ -92,7 +93,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   ServiceDisplay(
                     height: 80,
                     title: "Servicios",
-                    services: widget.field.servicios,
+                    services: ["PLACEHOLDER", "PLACEHOLDER"],
                   ),
                   const SizedBox(height: 16),
                   DatePicker(
@@ -111,7 +112,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Total: ARS ${widget.field.precio}",
+                    "Total: ARS 25000",
                     style: contextText.headlineSmall?.copyWith(
                       color: _selectedHour != null
                           ? contextColors.primary
@@ -132,7 +133,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                   return AlertDialog(
                                     title: const Text("¡Reserva Exitosa!"),
                                     content: Text(
-                                      "Código: ${_reservationCode(widget.field.nombre)}",
+                                      "Código: ${_reservationCode(widget.field.complejo.nombreComplejo)}",
                                     ),
                                     actions: [
                                       TextButton(
@@ -189,37 +190,41 @@ class _InfoText extends StatelessWidget {
 }
 
 class _ConfirmationHeader extends StatelessWidget {
-  final String image;
+  final String? image;
   final String title;
 
   const _ConfirmationHeader({required this.image, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //Header
-      width: double.infinity,
-      height: 200,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/fields/$image"),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withValues(alpha: 0.5),
-            BlendMode.darken,
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: CachedNetworkImage(
+            imageUrl: image ?? "",
+            fit: BoxFit.fill,
+            placeholder: (_, _) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (_, _, _) =>
+                Image.asset("assets/images/defaultField.png", fit: BoxFit.fill),
           ),
         ),
-      ),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 38, color: Colors.white),
+        Container(
+          width: double.infinity,
+          height: 200,
+          color: Colors.black.withValues(alpha: 0.5),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                title,
+                style: TextStyle(fontSize: 38, color: Colors.white),
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
