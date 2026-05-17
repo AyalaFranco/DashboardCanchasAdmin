@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/date_picker.dart';
 import 'package:reserva_cancha/components/service_display.dart';
@@ -189,37 +190,41 @@ class _InfoText extends StatelessWidget {
 }
 
 class _ConfirmationHeader extends StatelessWidget {
-  final String image;
+  final String? image;
   final String title;
 
   const _ConfirmationHeader({required this.image, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //Header
-      width: double.infinity,
-      height: 200,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/fields/$image"),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withValues(alpha: 0.5),
-            BlendMode.darken,
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: CachedNetworkImage(
+            imageUrl: image ?? "",
+            fit: BoxFit.fill,
+            placeholder: (_, _) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (_, _, _) =>
+                Image.asset("assets/images/defaultField.png", fit: BoxFit.fill),
           ),
         ),
-      ),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 38, color: Colors.white),
+        Container(
+          width: double.infinity,
+          height: 200,
+          color: Colors.black.withValues(alpha: 0.5),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                title,
+                style: TextStyle(fontSize: 38, color: Colors.white),
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
