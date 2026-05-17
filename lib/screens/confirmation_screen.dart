@@ -50,12 +50,12 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         child: Column(
           children: [
             _ConfirmationHeader(
-              image: widget.field.imagenCancha,
-              title: widget.field.nombre,
+              image: widget.field.imagenCancha ?? "null.png",
+              title: widget.field.complejo.nombreComplejo,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column( 
+              child: Column(
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -72,12 +72,12 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                         ),
                         _InfoText(
                           label: 'Ubicación',
-                          value: widget.field.ubicacion,
+                          value: widget.field.complejo.direccion,
                           icon: Icons.location_on,
                         ),
                         _InfoText(
                           label: 'Teléfono',
-                          value: widget.field.telefono,
+                          value: widget.field.complejo.telefono,
                           icon: Icons.phone,
                         ),
                         _InfoText(
@@ -92,7 +92,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   ServiceDisplay(
                     height: 80,
                     title: "Servicios",
-                    services: widget.field.servicios,
+                    services: ["PLACEHOLDER", "PLACEHOLDER"],
                   ),
                   const SizedBox(height: 16),
                   DatePicker(
@@ -111,7 +111,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Total: ARS ${widget.field.precio}",
+                    "Total: ARS 25000",
                     style: contextText.headlineSmall?.copyWith(
                       color: _selectedHour != null
                           ? contextColors.primary
@@ -132,7 +132,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                   return AlertDialog(
                                     title: const Text("¡Reserva Exitosa!"),
                                     content: Text(
-                                      "Código: ${_reservationCode(widget.field.nombre)}",
+                                      "Código: ${_reservationCode(widget.field.complejo.nombreComplejo)}",
                                     ),
                                     actions: [
                                       TextButton(

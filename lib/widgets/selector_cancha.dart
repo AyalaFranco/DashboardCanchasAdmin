@@ -36,7 +36,7 @@ class selectorCancha extends StatelessWidget {
               children: [
                 ClipOval(
                   child: Image.asset(
-                    "assets/images/icons/${field.logoCancha}",
+                    "assets/images/icons/${field.complejo.logoCancha ?? 'null.png'}",
                     width: 80,
                     height: 80,
                   ),
@@ -52,14 +52,14 @@ class selectorCancha extends StatelessWidget {
                         children: [
                           Text(
                             //Titulo
-                            field.nombre,
+                            field.complejo.nombreComplejo,
                             style: contextText.bodyLarge,
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
                       Text(field.tipoCancha, style: contextText.bodySmall),
-                      Text(field.ubicacion, style: contextText.bodySmall),
+                      Text(field.complejo.direccion, style: contextText.bodySmall),
                       const SizedBox(height: 6),
 
                       Row(
@@ -71,7 +71,7 @@ class selectorCancha extends StatelessWidget {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: field.precio.toString(),
+                                  text: '25000', //Hardcodeado, el precio estará en los turnos
                                   style: contextText.bodySmall,
                                 ),
                                 TextSpan(

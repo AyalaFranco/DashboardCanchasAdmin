@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:reserva_cancha/providers/canchas_provider.dart';
 import 'package:reserva_cancha/core/app_themes.dart';
+import 'package:reserva_cancha/data/supabase_canchas_repository.dart';
+import 'package:reserva_cancha/model/canchas_repository.dart';
 import 'package:reserva_cancha/services/auth/auth_gate.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,7 +15,20 @@ Future<void> main() async {
     url: 'https://qqyywtlistoirjpbkeyx.supabase.co',
     anonKey: 'sb_publishable_0yJ5oU4X6NFXliTSnMZh3Q_WJ0GB5ZH',
   );
-  runApp(const MainApp());
+
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<CanchasRepository>(create: (_) => SupabaseCanchasRepository()),
+
+        ChangeNotifierProvider(
+          create: (context) =>
+              CanchasProvider(repository: context.read<CanchasRepository>()),
+        ),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -19,10 +36,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AuthGate(),
-      theme: AppThemes.lightTheme,
-    );
+    return MaterialApp(home: AuthGate(), theme: AppThemes.lightTheme);
   }
 }
-
