@@ -23,7 +23,8 @@ class _AuthGateState extends State<AuthGate> {
         final session = snapshot.data?.session;
 
         if (session != null){
-          return const CCAHomeScreen();//home
+          return const LoginPage();
+         // return const CCAHomeScreen();//home
         } else {
           return const LoginPage();//Erorr
         }

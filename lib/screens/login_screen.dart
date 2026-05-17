@@ -4,6 +4,10 @@ import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
 import 'package:reserva_cancha/screens/register_screen.dart';
 
+
+
+
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -14,8 +18,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailCtrl = TextEditingController(); //Acceder al texto del campo
   final _passCtrl = TextEditingController();
-  bool _isLogin = true; //Variable de cambio de sesion
   final _auth = AuthService();
+
+  Future <bool> _performBiometricAuth() async{
+  try{
+    bool authSucces= await _auth.authenticate();
+    return authSucces;
+  }catch(e){
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error En Huella Biométrica: ${e.toString()}")),
+      );
+    }
+    return false;
+  }
+
+}
+
 
   Future<void> _submit() async {
     //Funcion de apretar boton
@@ -29,21 +48,37 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
   
-    Navigator.pushReplacement(
+  
+  
+try {//Funcion inicio sesion
+      await _auth.signIn(email, password);
+
+      if(!mounted) return;
+
+      bool biometricAuth= await _performBiometricAuth();
+
+       if(mounted && biometricAuth){
+        Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => CCAHomeScreen()),
       );
-  
-try { //Funcion inicio sesion
-    if (_isLogin) {
-      await _auth.signIn(email, password);
-    } else {
-      await _auth.signUp(email , password);
+  }
+    } 
+  catch(e){
+   if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error en TrySignIn:${e.toString()}"))
+        );
     }
-  }catch(e){
-    print("Hola");
   }
+  
+ 
+
+
+
   }
+
+
   @override
   Widget build(BuildContext context) {
     final contextText = TextTheme.of(context);
@@ -63,7 +98,7 @@ try { //Funcion inicio sesion
                   width: 160,
                   child: Text(
                     
-                    _isLogin ? "LogIn" : "Sign In",
+                    "Iniciar Sesión",
                     style: contextText.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
@@ -119,3 +154,5 @@ try { //Funcion inicio sesion
     );
   }
 }
+
+
