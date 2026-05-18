@@ -14,13 +14,23 @@ class registerPage extends StatefulWidget {
 class _registerPageState extends State<registerPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final telephoneNumberController = TextEditingController();
+  final direccionController = TextEditingController();
+  final localidadController= TextEditingController();
+
+
   bool _isRegister = true; //Variable de cambio de sesion
   final _auth = AuthService();
 
   Future<void> _submit() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-
+    final telephone = telephoneNumberController.text.trim();
+    final dni= direccionController.text.trim();
+    int localidad=1;
+    //parse(localidadController.text.trim());
+    //cambiar localidad a final cuando se resuelva
+    
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Necesitan llenar los campos")),
@@ -30,7 +40,7 @@ class _registerPageState extends State<registerPage> {
 
     try {
       if (_isRegister) {
-        await _auth.signUp(email, password);
+        await _auth.signUp(email, password,telephone,dni, localidad);
       }
 
       Navigator.pushReplacement(
@@ -61,7 +71,6 @@ class _registerPageState extends State<registerPage> {
                   width: 160,
                   alignment: Alignment.center,
                   child: Text("Crear Cuenta", style: contextText.bodyLarge),
-                
                 ),
               ),
               paddingButtons(contextText, emailController, "Email"),
@@ -71,9 +80,8 @@ class _registerPageState extends State<registerPage> {
                 "Password",
                 obscureText: true,
               ),
-              textFields(contextText, "DNI"),
-              SizedBox(height: 8,),
-              textFields(contextText, "Direccion"),
+              paddingButtons(contextText, direccionController, "Direccion"),
+              paddingButtons(contextText, telephoneNumberController, "Telephone"),
               Padding(
                 padding: const EdgeInsets.all(6),
                 child: ElevatedButton(
@@ -90,7 +98,7 @@ class _registerPageState extends State<registerPage> {
                     MaterialPageRoute(builder: (_) => LoginPage()),
                   );
                 },
-              
+
                 child: Text("¿Tienes cuenta? Inicia sesion"),
               ),
             ],
@@ -100,20 +108,20 @@ class _registerPageState extends State<registerPage> {
     );
   }
 
-  TextField textFields(TextTheme contextText, String texto){
+  TextField textFields(TextTheme contextText, String texto) {
     return TextField(
-        decoration: InputDecoration(
-          labelStyle: contextText.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
-          labelText: texto,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
+      decoration: InputDecoration(
+        labelStyle: contextText.bodyMedium!.copyWith(
+          fontStyle: FontStyle.italic,
         ),
-      
-      );
-}
-
+        labelText: texto,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+      ),
+    );
+  }
 
   Padding paddingButtons(
     TextTheme contextText,
@@ -124,10 +132,12 @@ class _registerPageState extends State<registerPage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextField(
-        controller: emailController,
-        obscureText: true,
+        controller: controller,
+        obscureText: obscureText,
         decoration: InputDecoration(
-          labelStyle: contextText.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
+          labelStyle: contextText.bodyMedium!.copyWith(
+            fontStyle: FontStyle.italic,
+          ),
           labelText: texto,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

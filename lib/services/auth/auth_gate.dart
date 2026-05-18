@@ -26,6 +26,7 @@ class _AuthGateState extends State<AuthGate> {
           return const LoginPage();
          // return const CCAHomeScreen();//home
         } else {
+          
           return const LoginPage();//Erorr
         }
       },
