@@ -4,34 +4,31 @@ import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
 
-class registerPage extends StatefulWidget {
-  const registerPage({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<registerPage> createState() => _registerPageState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _registerPageState extends State<registerPage> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  final nombreUsuarioController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final telephoneNumberController = TextEditingController();
   final direccionController = TextEditingController();
-  final localidadController= TextEditingController();
 
-
-  bool _isRegister = true; //Variable de cambio de sesion
   final _auth = AuthService();
 
   Future<void> _submit() async {
+    final nombreUsuario = nombreUsuarioController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
     final telephone = telephoneNumberController.text.trim();
-    final dni= direccionController.text.trim();
-    int localidad=1;
-    //parse(localidadController.text.trim());
-    //cambiar localidad a final cuando se resuelva
-    
-    if (email.isEmpty || password.isEmpty) {
+    final direccion = direccionController.text.trim();
+    int localidad = 1; //Si lo hacemos bien, esto se obtendría de un desplegable, NO DE UN TEXT CONTROLLER.
+
+    if (nombreUsuario.isEmpty || email.isEmpty || password.isEmpty || telephone.isEmpty || direccion.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Necesitan llenar los campos")),
       );
@@ -39,15 +36,22 @@ class _registerPageState extends State<registerPage> {
     }
 
     try {
-      if (_isRegister) {
-        await _auth.signUp(email, password,telephone,dni, localidad);
-      }
+      await _auth.signUp(
+        nombreUsuario: nombreUsuario,
+        email: email,
+        password: password,
+        telephone: telephone,
+        direccion: direccion,
+        localidad: localidad,
+      );
 
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => CCAHomeScreen()),
       );
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(e.toString())));
@@ -73,15 +77,20 @@ class _registerPageState extends State<registerPage> {
                   child: Text("Crear Cuenta", style: contextText.bodyLarge),
                 ),
               ),
-              paddingButtons(contextText, emailController, "Email"),
-              paddingButtons(
+              _buildInputField(contextText, nombreUsuarioController, "Nombre de Usuario"),
+              _buildInputField(contextText, emailController, "Email"),
+              _buildInputField(
                 contextText,
                 passwordController,
                 "Password",
                 obscureText: true,
               ),
-              paddingButtons(contextText, direccionController, "Direccion"),
-              paddingButtons(contextText, telephoneNumberController, "Telephone"),
+              _buildInputField(contextText, direccionController, "Direccion"),
+              _buildInputField(
+                contextText,
+                telephoneNumberController,
+                "Telephone",
+              ),
               Padding(
                 padding: const EdgeInsets.all(6),
                 child: ElevatedButton(
@@ -108,6 +117,16 @@ class _registerPageState extends State<registerPage> {
     );
   }
 
+  @override
+  void dispose() {
+    nombreUsuarioController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    telephoneNumberController.dispose();
+    direccionController.dispose();
+    super.dispose();
+  }
+
   TextField textFields(TextTheme contextText, String texto) {
     return TextField(
       decoration: InputDecoration(
@@ -123,7 +142,7 @@ class _registerPageState extends State<registerPage> {
     );
   }
 
-  Padding paddingButtons(
+  Padding _buildInputField(
     TextTheme contextText,
     TextEditingController controller,
     String texto, {

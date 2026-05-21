@@ -4,10 +4,6 @@ import 'package:reserva_cancha/services/auth_service.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
 import 'package:reserva_cancha/screens/register_screen.dart';
 
-
-
-
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -20,21 +16,21 @@ class _LoginPageState extends State<LoginPage> {
   final _passCtrl = TextEditingController();
   final _auth = AuthService();
 
-  Future <bool> _performBiometricAuth() async{
-  try{
-    bool authSucces= await _auth.authenticate();
-    return authSucces;
-  }catch(e){
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error En Huella Biométrica: ${e.toString()}")),
-      );
+  Future<bool> _performBiometricAuth() async {
+    try {
+      bool authSucces = await _auth.authenticate();
+      return authSucces;
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Error En Huella Biométrica: ${e.toString()}"),
+          ),
+        );
+      }
+      return false;
     }
-    return false;
   }
-
-}
-
 
   Future<void> _submit() async {
     //Funcion de apretar boton
@@ -47,37 +43,29 @@ class _LoginPageState extends State<LoginPage> {
       );
       return;
     }
-  
-  
-  
-try {//Funcion inicio sesion
+
+    try {
+      //Funcion inicio sesion
       await _auth.signIn(email, password);
 
-      if(!mounted) return;
+      if (!mounted) return;
 
-      bool biometricAuth= await _performBiometricAuth();
+      bool biometricAuth = await _performBiometricAuth();
 
-       if(mounted && biometricAuth){
+      if (mounted && biometricAuth) {
         Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => CCAHomeScreen()),
-      );
-  }
-    } 
-  catch(e){
-   if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error en TrySignIn:${e.toString()}"))
+          context,
+          MaterialPageRoute(builder: (_) => CCAHomeScreen()),
         );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error en TrySignIn:${e.toString()}")),
+        );
+      }
     }
   }
-  
- 
-
-
-
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,19 +81,17 @@ try {//Funcion inicio sesion
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-              
                   decoration: BoxDecorations.regularContainer(context),
                   width: 160,
                   child: Text(
-                    
                     "Iniciar Sesión",
                     style: contextText.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              paddingButtons("Email", _emailCtrl),
-              paddingButtons("Password", _passCtrl, obscureText: true),
+              _buildInputField("Email", _emailCtrl),
+              _buildInputField("Password", _passCtrl, obscureText: true),
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: ElevatedButton(
@@ -117,12 +103,11 @@ try {//Funcion inicio sesion
                 //Cambiar de estado o pagina
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => registerPage()));
+                    context,
+                    MaterialPageRoute(builder: (_) => RegisterScreen()),
+                  );
                 },
-                child: Text(
-                      "¿No tienes cuenta? Registrate"
-                ),
+                child: Text("¿No tienes cuenta? Registrate"),
               ),
             ],
           ),
@@ -130,11 +115,11 @@ try {//Funcion inicio sesion
       ),
     );
   }
-  
-  Padding paddingButtons(
+
+  Padding _buildInputField(
     String texto,
     TextEditingController controller, {
-    bool obscureText = false, 
+    bool obscureText = false,
   }) {
     final contextText = TextTheme.of(context);
     return Padding(
@@ -143,7 +128,9 @@ try {//Funcion inicio sesion
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          labelStyle: contextText.bodyMedium!.copyWith(fontStyle: FontStyle.italic),
+          labelStyle: contextText.bodyMedium!.copyWith(
+            fontStyle: FontStyle.italic,
+          ),
           labelText: texto,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -154,5 +141,3 @@ try {//Funcion inicio sesion
     );
   }
 }
-
-

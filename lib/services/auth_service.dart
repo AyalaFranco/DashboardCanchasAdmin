@@ -31,18 +31,21 @@ class AuthService {
     return false;
   }
 
-  Future<void> signUp(
-    String email,
-    String password,
-    String telephone,
-    String direccion,
+  Future<void> signUp({
+    required String nombreUsuario,
+    required String email,
+    required String password,
+    required String telephone,
+    required String direccion,
     int? localidad,
+  }
   ) async {
     //Metodo signUp
     final response = await _client.auth.signUp(
       email: email,
       password: password,
       data: {
+        "nombreUsuario" : nombreUsuario,
         "direccion": direccion,
         "telephone": telephone,
         "idLocalidad": localidad,

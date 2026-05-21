@@ -23,11 +23,12 @@ class _AuthGateState extends State<AuthGate> {
         final session = snapshot.data?.session;
 
         if (session != null){
-          return const LoginPage();
-         // return const CCAHomeScreen();//home
+          return const LoginPage(); //Esto está mal y habría que cambiarlo en el futuro.
+          //Se crean sesiones fantasmas que, si bien no están activas en el dispositivo...
+          //...sí lo están en la base de datos, dando posibles problemas de integridad.
+         //return const CCAHomeScreen();
         } else {
-          
-          return const LoginPage();//Erorr
+          return const LoginPage();
         }
       },
     );
