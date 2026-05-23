@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reserva_cancha/data/supabase_localidades_repository.dart';
+import 'package:reserva_cancha/data/supabase_servicios_repository.dart';
 import 'package:reserva_cancha/providers/canchas_provider.dart';
 import 'package:reserva_cancha/core/app_themes.dart';
 import 'package:reserva_cancha/data/supabase_canchas_repository.dart';
-import 'package:reserva_cancha/model/canchas_repository.dart';
+import 'package:reserva_cancha/providers/localidades_provider.dart';
+import 'package:reserva_cancha/providers/servicios_provider.dart';
 import 'package:reserva_cancha/services/auth/auth_gate.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -19,11 +22,19 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        Provider<CanchasRepository>(create: (_) => SupabaseCanchasRepository()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              ServiciosProvider(repository: SupabaseServiciosRepository()),
+        ),
 
         ChangeNotifierProvider(
           create: (context) =>
-              CanchasProvider(repository: context.read<CanchasRepository>()),
+              CanchasProvider(repository: SupabaseCanchasRepository()),
+        ),
+
+        ChangeNotifierProvider(
+          create: (context) =>
+              LocalidadesProvider(repository: SupabaseLocalidadesRepository()),
         ),
       ],
       child: const MainApp(),

@@ -16,6 +16,17 @@ class Localidad {
       provincia: Provincia.fromJson(json['PROVINCIA']),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is Localidad &&
+            runtimeType == other.runtimeType &&
+            idLocalidad == other.idLocalidad;
+  }
+
+  @override
+  int get hashCode => idLocalidad.hashCode;
 }
 
 class Provincia {
@@ -36,6 +47,17 @@ class Provincia {
       pais: Pais.fromJson(json['PAIS']),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is Provincia &&
+            runtimeType == other.runtimeType &&
+            idProvincia == other.idProvincia;
+  }
+
+  @override
+  int get hashCode => idProvincia.hashCode;
 }
 
 class Pais {
@@ -45,9 +67,17 @@ class Pais {
   Pais({required this.idPais, required this.pais});
 
   factory Pais.fromJson(Map<String, dynamic> json) {
-    return Pais(
-      idPais: json['idPais'],
-      pais: json['pais']
-    );
+    return Pais(idPais: json['idPais'], pais: json['pais']);
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is Pais &&
+            runtimeType == other.runtimeType &&
+            idPais == other.idPais;
+  }
+
+  @override
+  int get hashCode => idPais.hashCode;
 }
