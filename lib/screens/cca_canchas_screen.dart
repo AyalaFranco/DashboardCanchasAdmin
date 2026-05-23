@@ -17,7 +17,7 @@ class _CCACanchasScreenState extends State<CCACanchasScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CanchasProvider>().loadCanchas();
+      context.read<CanchasProvider>().loadAllCanchas();
     });
   }
 
@@ -34,18 +34,18 @@ class _CCACanchasScreenState extends State<CCACanchasScreen> {
   }
 
   Widget _buildBody(CanchasProvider provider) {
-    if (provider.isLoading) {
+    if (provider.isBusy) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (provider.canchas.isEmpty) {
+    if (provider.canchasList.isEmpty) {
       return const Center(child: Text("No se encontraron canchas"));
     }
 
     return ListView.builder(
-      itemCount: provider.canchas.length,
+      itemCount: provider.canchasList.length,
       itemBuilder: (BuildContext context, int index) =>
-          selectorCancha(field: provider.canchas[index]),
+          selectorCancha(field: provider.canchasList[index]),
     );
   }
 }

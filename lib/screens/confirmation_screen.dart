@@ -86,14 +86,18 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                           value: widget.field.tipoCancha,
                           icon: Icons.stadium,
                         ),
+                        _InfoText(
+                          label: 'Suelo',
+                          value: widget.field.sueloCancha,
+                          icon: Icons.grass,
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
                   ServiceDisplay(
-                    height: 80,
                     title: "Servicios",
-                    services: ["PLACEHOLDER", "PLACEHOLDER"],
+                    complejo: widget.field.complejo,
                   ),
                   const SizedBox(height: 16),
                   DatePicker(
