@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
 
       bool biometricAuth = await _performBiometricAuth();
 
-      if (mounted && biometricAuth) {
+       if(mounted){ //&& biometricAuth
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => CCAHomeScreen()),

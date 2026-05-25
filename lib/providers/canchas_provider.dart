@@ -16,6 +16,8 @@ class CanchasProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
+
+
   Future<void> loadCanchas() async {
     _isLoading = true;
     _error = null;
@@ -45,5 +47,10 @@ class CanchasProvider extends ChangeNotifier {
           .toList();
     }
     notifyListeners();
+  }
+
+  Future<void> insertCanchas(Cancha cancha) async{
+    await repository.insertCanchas(cancha);
+    await repository.fetchAllCanchas();
   }
 }

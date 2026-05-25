@@ -38,4 +38,11 @@ class SupabaseCanchasRepository implements CanchasRepository {
 
     return Cancha.fromJson(json);
   }
+
+  @override
+  Future<void> insertCanchas(Cancha cancha) async{
+    await _client.from('CANCHA').insert(cancha.toJson());
+  }
+
+
 }

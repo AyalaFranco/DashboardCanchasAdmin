@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/admin/dashboard_screen.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
@@ -23,12 +24,10 @@ class _AuthGateState extends State<AuthGate> {
         final session = snapshot.data?.session;
 
         if (session != null){
-          return const LoginPage(); //Esto está mal y habría que cambiarlo en el futuro.
-          //Se crean sesiones fantasmas que, si bien no están activas en el dispositivo...
-          //...sí lo están en la base de datos, dando posibles problemas de integridad.
-         //return const CCAHomeScreen();
+          return const dashboard();
+         // return const CCAHomeScreen();//home
         } else {
-          return const LoginPage();
+          return const dashboard();
         }
       },
     );

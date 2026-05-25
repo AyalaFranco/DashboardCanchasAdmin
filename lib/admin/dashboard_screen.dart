@@ -27,7 +27,7 @@ class dashboard extends StatelessWidget {
             Navigator.push(
               context, 
               MaterialPageRoute(
-                builder: (_) => const reservasScreen()
+                builder: (_) => const ReservasScreen()
               ),   
             );
           },

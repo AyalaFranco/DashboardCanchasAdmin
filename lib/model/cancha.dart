@@ -28,4 +28,13 @@ class Cancha {
     );
   }
 
+  Map<String, dynamic> toJson(){
+      return {
+        'numeroCancha' : numeroCancha,
+        'tipoCancha' : tipoCancha,
+
+
+      };
+    }
+
 }
