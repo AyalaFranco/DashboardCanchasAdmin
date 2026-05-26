@@ -6,28 +6,29 @@ class Reserva {
   final DateTime fechaAltaReserva;
   final int estadoReserva;
   final double precioReserva;
-  final Turno idTurno;
-  final Usuario idUsuario;
-
+  final Turno turno;
+  final Usuario usuario;
 
   Reserva({
-  required this.idReserva,
-  required this.fechaAltaReserva,
-  required this.estadoReserva,
-  required this.precioReserva,
-  required this.idTurno,
-  required this.idUsuario,
+    required this.idReserva,
+    required this.fechaAltaReserva,
+    required this.estadoReserva,
+    required this.precioReserva,
+    required this.turno,
+    required this.usuario,
   });
 
   factory Reserva.fromJson(Map<String, dynamic> json) {
+    print(json);
     return Reserva(
       idReserva: json['idReserva'],
-      fechaAltaReserva: json['fechaAltaReserva'],
+      fechaAltaReserva: DateTime.parse(json['fechaAltaReserva']),
       estadoReserva: json['estadoReserva'],
-      precioReserva: json['precioReserva'],
-      idTurno: Turno.fromJson(json['TURNO']),
-      idUsuario: Usuario.fromJson(json['USUARIO'])
+      precioReserva: json['precioReserva'].toDouble(),
+      turno: Turno.fromJson(json['TURNO']),
+      usuario: Usuario.fromJson(json['USUARIO']),
     );
   }
+
   
 }

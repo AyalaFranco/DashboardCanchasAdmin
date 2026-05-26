@@ -1,5 +1,5 @@
 import 'package:reserva_cancha/model/cancha.dart';
-import 'package:reserva_cancha/model/configuracionPrecios.dart';
+import 'package:reserva_cancha/model/configuracion_precios.dart';
 
 class Turno {
   final int idTurno;
@@ -7,8 +7,8 @@ class Turno {
   final DateTime fechaFinTurno;
   final DateTime fechaInicioTurno;
   final int estadoTurno;
-  final ConfiguracionPrecios idConfiguracionPrecios;
-  final Cancha idCancha;
+  final ConfiguracionPrecios configuracionPrecios;
+  final Cancha cancha;
 
   Turno({
     required this.idTurno,
@@ -16,20 +16,25 @@ class Turno {
     required this.fechaFinTurno,
     required this.fechaInicioTurno,
     required this.estadoTurno,
-    required this.idConfiguracionPrecios,
-    required this.idCancha,
+    required this.configuracionPrecios,
+    required this.cancha,
   });
 
   factory Turno.fromJson(Map<String, dynamic> json) {
+    if (json['CONFIGURACIONPRECIOS'] != null) {
+      json['CONFIGURACIONPRECIOS']['CANCHA'] = json['CANCHA'];
+    }
+
     return Turno(
       idTurno: json['idTurno'],
-      precio: json['precio'],
-      fechaFinTurno: json['fechaFinTurno'],
-      fechaInicioTurno: json['fechaInicioTurno'],
+      precio: json['precio'].toDouble(),
+      fechaFinTurno: DateTime.parse(json['fechaFinTurno']),
+      fechaInicioTurno: DateTime.parse(json['fechaInicioTurno']),
       estadoTurno: json['estadoTurno'],
-      idConfiguracionPrecios: ConfiguracionPrecios.fromJson(json['idConfiguracionPrecios']),
-      idCancha: Cancha.fromJson(json['idCancha'])
+      configuracionPrecios: ConfiguracionPrecios.fromJson(
+        json['CONFIGURACIONPRECIOS'],
+      ),
+      cancha: Cancha.fromJson(json['CANCHA']),
     );
   }
-
 }

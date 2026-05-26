@@ -7,19 +7,19 @@ class CanchasProvider extends ChangeNotifier {
 
   CanchasProvider({required this.repository});
 
+  Cancha? _selectedCancha;
   List<Cancha> _canchas = [];
   List<Cancha> _canchasFiltradas = [];
-  bool _isLoading = false;
+  bool _isBusy = false;
   String? _error;
 
-  List<Cancha> get canchas => _canchasFiltradas;
-  bool get isLoading => _isLoading;
+  Cancha? get selectedCancha => _selectedCancha;
+  List<Cancha> get canchasList => _canchasFiltradas;
+  bool get isBusy => _isBusy;
   String? get error => _error;
 
-
-
-  Future<void> loadCanchas() async {
-    _isLoading = true;
+  Future<void> loadAllCanchas() async {
+    _isBusy = true;
     _error = null;
     notifyListeners();
 
@@ -29,7 +29,93 @@ class CanchasProvider extends ChangeNotifier {
     } catch (e) {
       _error = e.toString();
     } finally {
-      _isLoading = false;
+      _isBusy = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadCanchasOfComplejo(int complejoId) async {
+    _isBusy = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      _canchas = await repository.fetchCanchaByComplejo(complejoId);
+      _canchasFiltradas = _canchas;
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _isBusy = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadCancha(int canchaId) async {
+    _isBusy = true;
+    _selectedCancha = null;
+    _error = null;
+    notifyListeners();
+
+    try {
+      _selectedCancha = await repository.fetchCancha(canchaId);
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _isBusy = false;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> storeCancha(Cancha cancha) async {
+    _isBusy = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      await repository.storeCancha(cancha);
+      loadAllCanchas();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      return false;
+    } finally {
+      _isBusy = false;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> updateCancha(Cancha updatedCancha) async {
+    _isBusy = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      await repository.updateCancha(updatedCancha);
+      loadAllCanchas();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      return false;
+    } finally {
+      _isBusy = false;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> deleteCancha(int idCancha) async {
+    _isBusy = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      await repository.deleteCancha(idCancha);
+      loadAllCanchas();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      return false;
+    } finally {
+      _isBusy = false;
       notifyListeners();
     }
   }

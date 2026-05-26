@@ -19,7 +19,7 @@ class canchasScreenState extends State<canchasScreen> {
     super.initState();
 
     Future.microtask((){ //Espera que cargue el dart
-      context.read<CanchasProvider>().loadCanchas();
+      context.read<CanchasProvider>().loadAllCanchas();
     });
   }
 
@@ -41,15 +41,15 @@ class canchasScreenState extends State<canchasScreen> {
         child: const Icon (Icons.add),
         ),
 
-        body: provider.isLoading
+        body: provider.isBusy
         ? const Center(
           child: CircularProgressIndicator(),
         )
 
         : ListView.builder(
-          itemCount: provider.canchas.length,
+          itemCount: provider.canchasList.length,
           itemBuilder: (context, index){
-            final cancha = provider.canchas[index];
+            final cancha = provider.canchasList[index];
             return ListTile(
               title: Text('\$${cancha.numeroCancha}'),
               subtitle: Text(cancha.tipoCancha),

@@ -18,7 +18,7 @@ class _ReservasScreenState extends State<ReservasScreen> {
 
     Future.microtask(() {
       
-      context.read<ReservasProvider>().loadCanchas();
+      context.read<ReservasProvider>().loadReservas();
     });
   }
 
@@ -33,9 +33,15 @@ class _ReservasScreenState extends State<ReservasScreen> {
         title: const Text("Reservas"),
       ),
 
+      
+
       body: 
-      Text(provider.reservas.length.toString()),
-      /*provider.isLoading
+      /*Center(
+        child: Text(
+          provider.error ?? "sin error",
+        ),*/
+      //Text(provider.reservas.length.toString()),
+      provider.isLoading
       ? const Center(
         child:CircularProgressIndicator(),
       )
@@ -48,30 +54,29 @@ class _ReservasScreenState extends State<ReservasScreen> {
           return Card(
             child : ListTile(
               leading: const Icon (Icons.calendar_month),
-              title: Text(reserva.idUsuario.toString()),
+              title: Text("Reserva de: ${reserva.usuario.nombreUsuario}"),
               subtitle: Text(
-                "${reserva.idReserva}"
-                "${reserva.fechaAltaReserva}"
-                "${reserva.precioReserva}"
+                "ID: ${reserva.idReserva} "
+                "Fecha Alta:${reserva.fechaAltaReserva} "
+                "Hora:${reserva.turno.configuracionPrecios.horaInicio}"
               ),
 
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('\$${reserva.precioReserva}'),
-                  Text('\$${reserva.estadoReserva}'),
+                  Text('Precio: ${reserva.precioReserva}'),
+                  Text('Estado: ${reserva.estadoReserva}'),
                 ],
               ),
 
               onLongPress: (){
-                provider.error;
+                provider.error;//Cancelar
               }
             ),
           );
         }
       )
     );
-  }*/
-     );
   }
-}
+     
+  }

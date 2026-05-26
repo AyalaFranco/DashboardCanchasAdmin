@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/components/locality_selector.dart';
 import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/model/localidad.dart';
 import 'package:reserva_cancha/screens/cca_home_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
@@ -17,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final telephoneNumberController = TextEditingController();
   final direccionController = TextEditingController();
+  Localidad? _selectedLocalidad;
 
   final _auth = AuthService();
 
@@ -26,9 +29,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final password = passwordController.text.trim();
     final telephone = telephoneNumberController.text.trim();
     final direccion = direccionController.text.trim();
-    int localidad = 1; //Si lo hacemos bien, esto se obtendría de un desplegable, NO DE UN TEXT CONTROLLER.
+    int localidad = _selectedLocalidad?.idLocalidad ?? -1;
 
-    if (nombreUsuario.isEmpty || email.isEmpty || password.isEmpty || telephone.isEmpty || direccion.isEmpty) {
+    if (nombreUsuario.isEmpty || email.isEmpty || password.isEmpty || telephone.isEmpty || direccion.isEmpty || localidad == -1) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Necesitan llenar los campos")),
       );
@@ -65,52 +68,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Center(
         child: SizedBox(
           width: 400,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecorations.regularContainer(context),
-                  width: 160,
-                  alignment: Alignment.center,
-                  child: Text("Crear Cuenta", style: contextText.bodyLarge),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecorations.regularContainer(context),
+                    width: 160,
+                    alignment: Alignment.center,
+                    child: Text("Crear Cuenta", style: contextText.bodyLarge),
+                  ),
                 ),
-              ),
-              _buildInputField(contextText, nombreUsuarioController, "Nombre de Usuario"),
-              _buildInputField(contextText, emailController, "Email"),
-              _buildInputField(
-                contextText,
-                passwordController,
-                "Password",
-                obscureText: true,
-              ),
-              _buildInputField(contextText, direccionController, "Direccion"),
-              _buildInputField(
-                contextText,
-                telephoneNumberController,
-                "Telephone",
-              ),
-              Padding(
-                padding: const EdgeInsets.all(6),
-                child: ElevatedButton(
-                  onPressed: _submit,
-                  child: const Text("Registrarse"),
+                _buildInputField(contextText, nombreUsuarioController, "Nombre de Usuario"),
+                _buildInputField(contextText, emailController, "Email"),
+                _buildInputField(
+                  contextText,
+                  passwordController,
+                  "Password",
+                  obscureText: true,
                 ),
-              ),
-
-              TextButton(
-                //Cambiar de estado o pagina
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => LoginPage()),
-                  );
-                },
-
-                child: Text("¿Tienes cuenta? Inicia sesion"),
-              ),
-            ],
+                _buildInputField(contextText, direccionController, "Direccion"),
+                _buildInputField(
+                  contextText,
+                  telephoneNumberController,
+                  "Telephone",
+                ),
+                LocalitySelector(onSelectedLocalidad: (loc) => _selectedLocalidad = loc),
+                Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: ElevatedButton(
+                    onPressed: _submit,
+                    child: const Text("Registrarse"),
+                  ),
+                ),
+            
+                TextButton(
+                  //Cambiar de estado o pagina
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => LoginPage()),
+                    );
+                  },
+            
+                  child: Text("¿Tienes cuenta? Inicia sesion"),
+                ),
+              ],
+            ),
           ),
         ),
       ),
