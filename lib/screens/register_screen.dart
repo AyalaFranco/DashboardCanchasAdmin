@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:reserva_cancha/components/locality_selector.dart';
-import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/coreAdmin/box_decorations.dart';
 import 'package:reserva_cancha/model/localidad.dart';
-import 'package:reserva_cancha/screens/cca_home_screen.dart';
+import 'package:reserva_cancha/screens/dashboard_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
 
@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => CCAHomeScreen()),
+        MaterialPageRoute(builder: (_) => dashboard()),
       );
     } catch (e) {
       if (!mounted) return;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/screens/cca_home_screen.dart';
+import 'package:reserva_cancha/screens/dashboard_screen.dart';
 import 'package:reserva_cancha/services/auth_service.dart';
-import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/coreAdmin/box_decorations.dart';
 import 'package:reserva_cancha/screens/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
        if(mounted){ //&& biometricAuth
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => CCAHomeScreen()),
+          MaterialPageRoute(builder: (_) => dashboard()),
         );
       }
     } catch (e) {

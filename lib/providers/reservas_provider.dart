@@ -12,7 +12,7 @@ class ReservasProvider extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
 
-  List<Reserva> get reservas => _reservas;
+  List<Reserva> get reservas => _reservasFiltradas;
   bool get isLoading => _isLoading;
   String? get error => _error;
 
@@ -28,16 +28,25 @@ class ReservasProvider extends ChangeNotifier {
     return _load(() => repository.fetchReservasOfCancha(canchaId));
   }
 
+  void clear() {
+    _reservas.clear();
+    _reservasFiltradas.clear();
+  }
+
   void filterReservas({bool filterFinished = false}) {
     _reservasFiltradas = _reservas;
 
     if (filterFinished) {
+      DateTime now = DateTime.now();
+
       _reservasFiltradas = _reservasFiltradas
           .where(
-            (reserva) => reserva.turno.fechaFinTurno.isBefore(DateTime.now()),
+            (reserva) => reserva.turno.fechaFinTurno.isAfter(now),
           )
           .toList();
     }
+
+    notifyListeners();
   }
 
   Future<void> _load(Future<List<Reserva>> Function() fetcher) async {

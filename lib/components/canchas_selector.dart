@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
-import 'package:reserva_cancha/core/apptext_styles.dart';
+import 'package:reserva_cancha/coreAdmin/app_colors.dart';
+import 'package:reserva_cancha/coreAdmin/apptext_styles.dart';
 
 class CanchasSelector extends StatefulWidget {
   const CanchasSelector({super.key});

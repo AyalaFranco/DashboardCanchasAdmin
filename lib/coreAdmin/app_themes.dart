@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
+import 'package:reserva_cancha/coreAdmin/app_colors.dart';
 
 class AppThemes {
   static final ColorScheme _lightColorScheme = ColorScheme.fromSeed(

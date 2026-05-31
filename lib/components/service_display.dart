@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/coreAdmin/box_decorations.dart';
 import 'package:reserva_cancha/model/complejo.dart';
 import 'package:reserva_cancha/providers/servicios_provider.dart';
 

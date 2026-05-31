@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reserva_cancha/admin/coreAdmin/dialogAgregar.dart';
+import 'package:reserva_cancha/coreAdmin/dialogAgregar.dart';
 import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/providers/canchas_provider.dart';
 

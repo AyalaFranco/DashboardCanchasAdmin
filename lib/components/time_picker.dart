@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/core/app_colors.dart';
-import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/coreAdmin/app_colors.dart';
+import 'package:reserva_cancha/coreAdmin/box_decorations.dart';
 
 class TimePicker extends StatelessWidget {
   final int? selectedHour;

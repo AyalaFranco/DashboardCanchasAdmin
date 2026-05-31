@@ -74,6 +74,8 @@ class AuthService {
     await _client.auth.signOut();
   }
 
+  String? get currentUserUuid => _client.auth.currentUser?.id;
+
   Stream<AuthState> get authState =>
       _client.auth.onAuthStateChange; //Getter de estado de autenticacion
 }

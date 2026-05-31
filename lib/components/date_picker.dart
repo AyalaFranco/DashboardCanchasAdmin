@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/core/box_decorations.dart';
+import 'package:reserva_cancha/coreAdmin/box_decorations.dart';
 
 class DatePicker extends StatelessWidget {
   final String title;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reserva_cancha/admin/canchas_screen.dart';
-import 'package:reserva_cancha/admin/reservas_screen.dart';
+import 'package:reserva_cancha/screens/canchas_screen.dart';
+import 'package:reserva_cancha/screens/reservas_screen.dart';
 import 'package:reserva_cancha/screens/cca_profile_screen.dart';
 import 'package:reserva_cancha/screens/login_screen.dart';
-import 'package:reserva_cancha/admin/widgetAdmin/dashboard_card.dart';
+import 'package:reserva_cancha/widgetAdmin/dashboard_card.dart';
 
 class dashboard extends StatelessWidget {
   const dashboard({super.key});
