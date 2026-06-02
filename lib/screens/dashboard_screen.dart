@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:reserva_cancha/coreAdmin/dialogAgregar.dart';
+import 'package:reserva_cancha/coreAdmin/dialog_premium.dart';
 import 'package:reserva_cancha/screens/canchas_screen.dart';
 import 'package:reserva_cancha/screens/reservas_screen.dart';
 import 'package:reserva_cancha/screens/cca_profile_screen.dart';
@@ -10,6 +12,7 @@ class dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool premium = false;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Panel administrativo"),
@@ -55,12 +58,29 @@ class dashboard extends StatelessWidget {
             );
           },
          ),
+
+         ListTile(
+          leading: const Icon(Icons.people),
+          title: const Text("Clientes"),
+          onTap: (){
+            Navigator.push(
+              context,
+               MaterialPageRoute(
+                builder: (_) => const canchasScreen()
+             ),
+            );
+          },
+         ),
         ],
       ),
     ),
 
       body: GridView.count(
-        crossAxisCount: 2,
+        crossAxisCount:
+        MediaQuery.of(context).size.width > 900 //Si es mas de 900px anchar a 4 culumns
+        ? 4
+        : 2,
+        
         padding: const EdgeInsets.all(20),
         children: [
           
@@ -106,19 +126,39 @@ class dashboard extends StatelessWidget {
              },
             ),
 
-            DashboardCard(
-            titulo: "Ganancias", 
-            valor: "100.000", 
-            icono: Icons.attach_money,
-            onTap: () { 
-              Navigator.push(
+            InkWell(
+              onTap: () {
+                if(!premium){
+                  mostrarDialogPremium(context);
+                  return;
+                }
+
+                Navigator.push(
                 context, 
                 MaterialPageRoute(
-                  builder: (_) => const canchasScreen(),
+                  builder: (_) => const ReservasScreen(),
                   ),
                 );
              },
-            ),
+
+              child: Opacity(
+                opacity: premium ? 1 : 0.5,
+                child: Card(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        premium ? Icons.bar_chart : Icons.lock,
+                        color : const Color.fromARGB(255, 0, 0, 0),
+                        size: 50
+                      ),
+                      SizedBox(height: 10),
+                      Text(premium ? "Estadisticas" : "Premium"),
+                    ],
+                  ),
+                )
+                ),
+            )
         ],
       )
       );
