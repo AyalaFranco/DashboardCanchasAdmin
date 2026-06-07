@@ -105,4 +105,29 @@ class SupabaseCanchasRepository implements CanchasRepository {
     // TODO: implement insertCanchas
     throw UnimplementedError();
   }
+  
+  
+
+  
+
+  @override
+  Future<List<Cancha>> fetchCanchasByDuenio(String idUsuario) async {
+  //para extrar el idUsuario del currentUser
+  //final idUsuario = Supabase.instance.client.auth.currentUser!.id;
+
+  
+  final complejoResponse = await Supabase.instance.client
+      .from('COMPLEJO')
+      .select('idComplejo')
+      .eq('idDuenio', idUsuario)
+      .single();
+
+  final idComplejo = complejoResponse['idComplejo'];
+
+  
+  return await fetchCanchaByComplejo(idComplejo);
+}
+
+
+  
 }

@@ -50,6 +50,23 @@ class CanchasProvider extends ChangeNotifier {
     }
   }
 
+  Future <void> loadCanchasOfDuenio(String idUsuario) async{
+   _isBusy = true;
+   _error=null;
+   notifyListeners();
+
+   try {
+    _canchas =await repository.fetchCanchasByDuenio(idUsuario);
+    _canchasFiltradas= _canchas;
+   }catch(e){
+    _error=e.toString();
+   }finally{
+    _isBusy=false;
+    notifyListeners();
+   }
+    
+  }
+
   Future<void> loadCancha(int canchaId) async {
     _isBusy = true;
     _selectedCancha = null;
@@ -139,4 +156,6 @@ class CanchasProvider extends ChangeNotifier {
     await repository.insertCanchas(cancha);
     await repository.fetchAllCanchas();
   }
+
+
 }
