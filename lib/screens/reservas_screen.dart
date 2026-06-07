@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:reserva_cancha/coreAdmin/dialogAgregar.dart';
+import 'package:reserva_cancha/coreAdmin/dialog_Reserva_Detalle.dart';
+import 'package:reserva_cancha/model/cancha.dart';
 import 'package:reserva_cancha/providers/reservas_provider.dart';
+import 'package:reserva_cancha/providers/usuarios_provider.dart';
+import 'package:reserva_cancha/services/auth_service.dart';
 
 class ReservasScreen extends StatefulWidget {
-  const ReservasScreen({super.key});
+
+  //final Cancha cancha;
+
+  const ReservasScreen({super.key, /*required this.cancha*/});
 
   @override
   State<ReservasScreen> createState() => _ReservasScreenState();
@@ -13,12 +22,14 @@ class _ReservasScreenState extends State<ReservasScreen> {
 
   @override
   void initState(){
-
     super.initState();
 
+    //int IdCancha = int.parse(widget.cancha.idCancha as String);
+
+    int IdCancha = 1;
     Future.microtask(() {
       
-      context.read<ReservasProvider>().loadReservas();
+      context.read<ReservasProvider>().loadReservasOfCancha(IdCancha);
     });
   }
 
@@ -56,21 +67,32 @@ class _ReservasScreenState extends State<ReservasScreen> {
               leading: const Icon (Icons.calendar_month),
               title: Text("Reserva de: ${reserva.usuario.nombreUsuario}"),
               subtitle: Text(
-                "ID: ${reserva.idReserva} "
-                "Fecha Alta:${reserva.fechaAltaReserva} "
-                "Hora:${reserva.turno.configuracionPrecios.horaInicio}"
+                "ID: ${reserva.idReserva}\n"
+                "Fecha Alta: ${DateFormat('dd/MM/yyyy ').format(reserva.fechaAltaReserva)}\n"
+                "Hora: ${reserva.turno.configuracionPrecios.horaInicio}"
               ),
 
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Precio: ${reserva.precioReserva}'),
-                  Text('Estado: ${reserva.estadoReserva}'),
+                  Text('Precio: \$${reserva.precioReserva}',
+                  style:TextStyle(fontSize: 14)),
+                  Text(reserva.estadoReserva == 1
+                  ? "Activa"
+                  : "Inactiva",
+                  
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: reserva.estadoReserva == 1
+                    ? Colors.green
+                    : Colors.red,
+                  ),
+                  )
                 ],
               ),
 
               onLongPress: (){
-                provider.error;//Cancelar
+                mostrarDialogReservaDetalle(context,reserva);//Cancelar
               }
             ),
           );
